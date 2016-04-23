@@ -2,9 +2,13 @@ package picklenostra.user_app;
 
 import android.content.SharedPreferences;
 import android.media.Image;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +33,7 @@ import java.util.Map;
 
 public class DashboardActivity extends ActionBarActivity {
 
+    private DrawerLayout drawerLayout;
     private ImageView profilePicture;
     private TextView profileName, memberSince, memberExperience, balanceContent,
         trashContent, levelContent;
@@ -44,6 +49,7 @@ public class DashboardActivity extends ActionBarActivity {
 
         //Initialize all vars
         session = new UserSessionManager(getApplicationContext());
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         profilePicture = (ImageView) findViewById(R.id.dashboard_profile_picture);
         profileName = (TextView) findViewById(R.id.dashboard_profile_name);
         memberSince = (TextView) findViewById(R.id.dashboard_member_since);
@@ -51,6 +57,10 @@ public class DashboardActivity extends ActionBarActivity {
         balanceContent = (TextView) findViewById(R.id.balance_content);
         trashContent = (TextView) findViewById(R.id.trash_content);
         levelContent = (TextView) findViewById(R.id.level_content);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         SharedPreferences shared = getSharedPreferences("PICKLEUSER", MODE_PRIVATE);
         email = shared.getString("email","");
@@ -67,6 +77,11 @@ public class DashboardActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
+        if(id == android.R.id.home){
+            drawerLayout.openDrawer(GravityCompat.START);
+            return true;
+        }
         if(id == R.id.action_settings){
             return true;
         }
@@ -103,8 +118,8 @@ public class DashboardActivity extends ActionBarActivity {
                     profileName.setText(nama);
                     memberSince.setText(memberSince2);
                     memberExperience.setText(exp+"/100");
-                    balanceContent.setText(saldo+"");
-                    trashContent.setText(sampahBotol+sampahPlastik+sampahKertas+sampahBesi+"");
+                    balanceContent.setText("Rp "+saldo);
+                    trashContent.setText(sampahBotol+sampahPlastik+sampahKertas+sampahBesi+" Kg");
                     levelContent.setText(level+"");
 
                     Log.e("INIAPA",id + " " + nama + " " + photoUrl + " " + saldo + " " + level + (sampahBotol+sampahPlastik+sampahKertas+sampahBesi));

@@ -9,9 +9,14 @@
     <string name="facebook_app_id">192983494404562</string>
     <string name="KEY_SHARED_PREF">PICKLEUSER</string>
 
-    <!--String related to menus-->
+    <!--Strings related to menus-->
     <string name="action_settings">Settings</string>
     <string name="action_logout">Logout</string>
+
+    <!--Strings related to Navigation Drawer-->
+    <string name="action_edit_profil">Edit Profil</string>
+    <string name="action_histori">Histori</string>
+    <string name="action_pengaturan">Pengaturan</string>
 
 
 </resources>
