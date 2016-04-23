@@ -1,0 +1,17 @@
+<resources>
+    <!--Strings related to App and Activity (GLOBAL)-->
+    <string name="app_name">User-App</string>
+    <string name="title_activity_completing_form">CompletingForm</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <!--Strings related to App Config-->
+    <string name="facebook_app_id">192983494404562</string>
+    <string name="KEY_SHARED_PREF">PICKLEUSER</string>
+
+    <!--String related to menus-->
+    <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
+
+
+</resources>
