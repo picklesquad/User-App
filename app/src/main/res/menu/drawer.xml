@@ -2,17 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/navigation_item_attachment"
-            android:checked="true"
-            android:icon="@drawable/ic_balance"
-            android:title="@string/action_pengaturan" />
+            android:id="@+id/navigation_item_edit_profil"
+            android:icon="@drawable/ic_edit_profil"
+            android:title="@string/action_edit_profil" />
         <item
-            android:id="@+id/navigation_item_images"
-            android:icon="@drawable/ic_balance"
+            android:id="@+id/navigation_item_histori"
+            android:icon="@drawable/ic_history"
             android:title="@string/action_histori" />
         <item
-            android:id="@+id/navigation_item_location"
-            android:icon="@drawable/ic_balance"
+            android:id="@+id/navigation_item_settings"
+            android:icon="@drawable/ic_setting"
+            android:title="@string/action_pengaturan" />
+        <item
+            android:id="@+id/navigation_item_logout"
+            android:icon="@drawable/ic_logout"
             android:title="@string/action_logout" />
     </group>
 

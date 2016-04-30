@@ -1,5 +1,6 @@
 package picklenostra.user_app;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
 import android.support.v4.view.GravityCompat;
@@ -58,6 +59,7 @@ public class DashboardActivity extends ActionBarActivity {
         trashContent = (TextView) findViewById(R.id.trash_content);
         levelContent = (TextView) findViewById(R.id.level_content);
 
+        //Initialize Action Bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -78,6 +80,9 @@ public class DashboardActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
+        if(id == R.id.action_search){
+            startActivity(new Intent(DashboardActivity.this, SearchWithMapActivity.class));
+        }
         if(id == android.R.id.home){
             drawerLayout.openDrawer(GravityCompat.START);
             return true;
@@ -118,11 +123,10 @@ public class DashboardActivity extends ActionBarActivity {
                     profileName.setText(nama);
                     memberSince.setText(memberSince2);
                     memberExperience.setText(exp+"/100");
-                    balanceContent.setText("Rp "+saldo);
-                    trashContent.setText(sampahBotol+sampahPlastik+sampahKertas+sampahBesi+" Kg");
-                    levelContent.setText(level+"");
+                    balanceContent.setText("Rp "+saldo + ",00");
+                    trashContent.setText(sampahPlastik+sampahKertas+sampahBesi+" Kgs dan " + sampahBotol + "Pcs");
+                    levelContent.setText(level);
 
-                    Log.e("INIAPA",id + " " + nama + " " + photoUrl + " " + saldo + " " + level + (sampahBotol+sampahPlastik+sampahKertas+sampahBesi));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
