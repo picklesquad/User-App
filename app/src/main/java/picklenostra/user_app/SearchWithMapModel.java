@@ -6,7 +6,8 @@ import java.io.Serializable;
  * Created by Edwin on 4/30/2016.
  */
 public class SearchWithMapModel implements Serializable {
-    
+
+    private int idBank;
     private String pictureUrl;
     private String namaBank;
     private String namaJalan;
@@ -44,4 +45,21 @@ public class SearchWithMapModel implements Serializable {
     public void setJarak(double jarak) {
         this.jarak = jarak;
     }
+
+    public int getIdBank() {
+        return idBank;
+    }
+
+    public void setIdBank(int idBank) {
+        this.idBank = idBank;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
+
 }

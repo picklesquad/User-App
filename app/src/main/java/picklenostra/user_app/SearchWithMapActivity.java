@@ -1,6 +1,7 @@
 package picklenostra.user_app;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -11,6 +12,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -65,6 +69,10 @@ public class SearchWithMapActivity extends ActionBarActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_with_map);
 
+        //Initialize Action Bar
+        getSupportActionBar().setTitle("Search Bank Sampah");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         //Initialize
         listView = (ListView) findViewById(R.id.searchwithmap_listview);
         listBankSampah = new ArrayList<>();
@@ -75,6 +83,17 @@ public class SearchWithMapActivity extends ActionBarActivity implements
         volleyRequest();
         listView.setAdapter(adapter);
         setPositionToCamera(curLat, curLong);
+
+        //ListView Listener
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int idBank = listBankSampah.get(position).getIdBank();
+                Intent intent = new Intent(SearchWithMapActivity.this, BankSampahDetailsActivity.class);
+                intent.putExtra("idBank",idBank);
+                startActivity(intent);
+            }
+        });
     }
 
     synchronized void buildGoogleApiClient() {
@@ -196,6 +215,7 @@ public class SearchWithMapActivity extends ActionBarActivity implements
                     JSONArray banks = responseObject.getJSONArray("bank");
                     for(int i = 0; i < banks.length(); i++){
                         JSONObject bank = (JSONObject) banks.get(i);
+                        int idBank = bank.getInt("id");
                         String namaBank = bank.getString("namaBank");
                         String alamatBank = bank.getString("alamatBank");
                         double latitude = bank.getDouble("latitude");
@@ -207,6 +227,7 @@ public class SearchWithMapActivity extends ActionBarActivity implements
 
                         //Create Model
                         SearchWithMapModel searchWithMapModel = new SearchWithMapModel();
+                        searchWithMapModel.setIdBank(idBank);
                         searchWithMapModel.setNamaBank(namaBank);
                         searchWithMapModel.setNamaJalan(alamatBank);
                         searchWithMapModel.setJarak(jarak);
@@ -293,5 +314,16 @@ public class SearchWithMapActivity extends ActionBarActivity implements
         googleApiClient.disconnect();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
 
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
 }

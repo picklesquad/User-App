@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    tools:context="picklenostra.user_app.BankSampahDetailsActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/banksampahdetails_framelayout"
+            android:layout_width="match_parent"
+            android:layout_height="256dp">
+
+            <ImageView
+                android:id="@+id/image_bank"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/brandinglogo"/>
+
+            <TextView
+                android:id="@+id/banksampahdetails_namabank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bank Sampah Jaya"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:background="@android:color/holo_green_light"
+                android:layout_gravity="bottom|left"
+                android:layout_marginBottom="20dp"
+                android:padding="10dp"/>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/banksampahdetails_framelayout"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="70"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lokasi"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="8dp"
+                    android:textColor="@color/text"
+                    />
+                <TextView
+                    android:id="@+id/banksampahdetails_lokasi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jl. Raya Perumahan Griya Asri Blok A No 1"
+                    android:textSize="16sp"
+                    android:textColor="@color/text"
+                    android:layout_marginLeft="8dp"
+                    />
+                <TextView
+                    android:paddingTop="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Narahubung"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="8dp"
+                    android:textColor="@color/text"
+                    />
+                <TextView
+                    android:id="@+id/banksampahdetails_narahubung"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Syukri (085758000085)"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="8dp"
+                    android:textColor="@color/text"
+                    />
+                <TextView
+                    android:paddingTop="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jumlah Nasabah"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="8dp"
+                    android:textColor="@color/text"
+                    />
+                <TextView
+                    android:id="@+id/banksampahdetails_jumlahnasabah"
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:text="180 orang"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="8dp"
+                    android:textColor="@color/text"
+                    />
+                <TextView
+                    android:paddingTop="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Menerima Sampah"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="8dp"
+                    android:textColor="@color/text"
+                    />
+                <TextView
+                    android:id="@+id/banksampahdetails_jenissampah"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Logam, Kertas, Botol, Plastik"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="8dp"
+                    android:textColor="@color/text"
+                    />
+            </LinearLayout>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="30"
+                android:text="Bergabung"
+                android:background="@drawable/style_rounded_button"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</ScrollView>

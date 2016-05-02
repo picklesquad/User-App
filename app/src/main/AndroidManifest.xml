@@ -47,7 +47,8 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".CompleteFormActivity" />
         <activity android:name=".DashboardActivity" />
-        <activity android:name=".SearchWithMapActivity"></activity>
+        <activity android:name=".SearchWithMapActivity" />
+        <activity android:name=".BankSampahDetailsActivity"></activity>
     </application>
 
 </manifest>
