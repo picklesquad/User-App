@@ -5,9 +5,37 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <uses-permission android:name="picklenostra.user_app.gcm.permission.C2D_MESSAGE"/>
+    <permission android:name="picklenostra.user_app.gcm.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+
+
+    <receiver
+        android:name="com.google.android.gms.gcm.GcmReceiver" android:exported="true"
+        android:permission="com.google.android.c2dm.permission.SEND" >
+        <intent-filter>
+            <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+            <category android:name="picklenostra.user_app" />
+        </intent-filter>
+    </receiver>
+    <service
+        android:name="picklenostra.user_app.MyIntentService" android:exported="false" >
+        <intent-filter>
+            <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+        </intent-filter>
+    </service>
+    <service
+        android:name="picklenostra.user_app.MyIDListenerService" android:exported="false">
+    <intent-filter>
+        <action android:name="com.google.android.gms.iid.InstanceID"/>
+    </intent-filter>
+    </service>
+
 
     <application
-        android:name=".VolleyController"
+        android:name=".Helper.VolleyController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

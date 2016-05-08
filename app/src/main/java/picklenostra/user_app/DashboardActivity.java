@@ -2,22 +2,17 @@ package picklenostra.user_app;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -27,10 +22,12 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import picklenostra.user_app.Helper.UserSessionManager;
+import picklenostra.user_app.Helper.VolleyController;
 
 public class DashboardActivity extends ActionBarActivity {
 
@@ -91,6 +88,7 @@ public class DashboardActivity extends ActionBarActivity {
             return true;
         }
         if(id == R.id.action_logout){
+
             session.logoutUser();
             LoginManager.getInstance().logOut();
             finish();

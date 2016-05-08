@@ -1,4 +1,4 @@
-package picklenostra.user_app;
+package picklenostra.user_app.Helper;
 
 /**
  * Created by Edwin on 4/21/2016.
@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import java.util.HashMap;
+
+import picklenostra.user_app.LoginActivity;
 
 /**
  * Created by Edwin on 3/10/2016.

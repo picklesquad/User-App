@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import picklenostra.user_app.Helper.UserSessionManager;
+
 import static picklenostra.user_app.R.layout.activity_splash_screen;
 
 public class SplashScreen extends AppCompatActivity {

@@ -51,6 +51,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="70"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:orientation="vertical">
 
                 <TextView
@@ -130,13 +131,28 @@
                     />
             </LinearLayout>
 
-            <Button
+            <!--<Button-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="30"-->
+                <!--android:text="Bergabung"-->
+                <!--android:background="@drawable/style_rounded_button"-->
+                <!--android:textColor="@color/white" />-->
+
+            <info.hoang8f.widget.FButton
+                xmlns:fbutton="http://schemas.android.com/apk/res-auto"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="30"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:text="Bergabung"
-                android:background="@drawable/style_rounded_button"
-                android:textColor="@color/white" />
+                android:textSize="12sp"
+                android:textColor="@color/blue"
+                fbutton:buttonColor="@color/white"
+                fbutton:shadowColor="@color/blue"
+                fbutton:shadowEnabled="true"
+                fbutton:shadowHeight="1dp"
+                fbutton:cornerRadius="5dp"/>
 
         </LinearLayout>
 

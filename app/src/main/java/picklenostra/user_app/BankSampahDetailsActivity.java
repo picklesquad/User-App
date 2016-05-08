@@ -13,6 +13,8 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import picklenostra.user_app.Helper.VolleyController;
+
 public class BankSampahDetailsActivity extends AppCompatActivity {
 
     private TextView namaBank, lokasiBank, jumlahNasabahBank, jenisSampahBank;

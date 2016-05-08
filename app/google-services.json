@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "1061683381515",
+    "project_id": "picklegcm"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061683381515:android:092defb02e40b34c",
+        "android_client_info": {
+          "package_name": "picklenostra.user_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK9ChYpJ6HhrPoBBWRVM45Xn1k2qAONLA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
