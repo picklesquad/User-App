@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:name=".VolleyController"
+        android:name=".helper.VolleyController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -47,6 +47,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".CompleteFormActivity" />
         <activity android:name=".DashboardActivity" />
+        <activity android:name=".ListBankActivity" />
         <activity android:name=".SearchWithMapActivity"></activity>
     </application>
 

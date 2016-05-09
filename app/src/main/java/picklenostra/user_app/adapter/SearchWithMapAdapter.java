@@ -1,4 +1,4 @@
-package picklenostra.user_app;
+package picklenostra.user_app.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,6 +12,9 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import picklenostra.user_app.R;
+import picklenostra.user_app.model.SearchWithMapModel;
 
 /**
  * Created by Edwin on 4/30/2016.

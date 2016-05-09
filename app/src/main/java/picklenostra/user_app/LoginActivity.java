@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telecom.Call;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
@@ -20,6 +19,8 @@ import com.facebook.login.widget.LoginButton;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+
+import picklenostra.user_app.helper.UserSessionManager;
 
 public class LoginActivity extends AppCompatActivity {
 

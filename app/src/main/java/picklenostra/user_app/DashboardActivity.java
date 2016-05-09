@@ -2,22 +2,19 @@ package picklenostra.user_app;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.support.v7.widget.CardView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -27,26 +24,31 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import picklenostra.user_app.helper.UserSessionManager;
+import picklenostra.user_app.helper.VolleyController;
 
 public class DashboardActivity extends ActionBarActivity {
 
     private DrawerLayout drawerLayout;
     private ImageView profilePicture;
-    private TextView profileName, memberSince, memberExperience, balanceContent,
-        trashContent, levelContent;
+    private TextView profileName, memberSince, memberExperience, balanceContent, trashContent, levelContent;
+    private CardView cardBalance;
     private UserSessionManager session;
     private String URL = "http://private-74bbc-apiuser1.apiary-mock.com/login";
     private String email, nama, photoUrl, level, memberSince2;
     private int id, star, exp, sampahPlastik, sampahKertas, sampahBotol, sampahBesi, saldo;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        getSupportActionBar().setTitle("");
 
         //Initialize all vars
         session = new UserSessionManager(getApplicationContext());
@@ -58,6 +60,14 @@ public class DashboardActivity extends ActionBarActivity {
         balanceContent = (TextView) findViewById(R.id.balance_content);
         trashContent = (TextView) findViewById(R.id.trash_content);
         levelContent = (TextView) findViewById(R.id.level_content);
+        cardBalance = (CardView) findViewById(R.id.cardBalance);
+
+        cardBalance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DashboardActivity.this, picklenostra.user_app.ListBankActivity.class));
+            }
+        });
 
         //Initialize Action Bar
         ActionBar actionBar = getSupportActionBar();
@@ -69,6 +79,16 @@ public class DashboardActivity extends ActionBarActivity {
 
         volleyRequest(email);
     }
+
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()){
+//            case R.id.cardBalance:
+//                startActivity(new Intent(DashboardActivity.this, ListBankActivity.class));
+//                break;
+//
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

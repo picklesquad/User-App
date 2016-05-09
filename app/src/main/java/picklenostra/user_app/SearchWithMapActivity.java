@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
@@ -41,7 +40,10 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
+
+import picklenostra.user_app.adapter.SearchWithMapAdapter;
+import picklenostra.user_app.helper.VolleyController;
+import picklenostra.user_app.model.SearchWithMapModel;
 
 public class SearchWithMapActivity extends ActionBarActivity implements
         LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {

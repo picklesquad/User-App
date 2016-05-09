@@ -1,4 +1,4 @@
-package picklenostra.user_app;
+package picklenostra.user_app.model;
 
 import java.io.Serializable;
 
