@@ -2,6 +2,7 @@ package picklenostra.user_app;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -35,6 +36,7 @@ public class DashboardActivity extends ActionBarActivity {
     private ImageView profilePicture;
     private TextView profileName, memberSince, memberExperience, balanceContent,
         trashContent, levelContent;
+    private NavigationView navigationView;
     private UserSessionManager session;
     private String URL = "http://private-74bbc-apiuser1.apiary-mock.com/login";
     private String email, nama, photoUrl, level, memberSince2;
@@ -47,6 +49,7 @@ public class DashboardActivity extends ActionBarActivity {
 
         //Initialize all vars
         session = new UserSessionManager(getApplicationContext());
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         profilePicture = (ImageView) findViewById(R.id.dashboard_profile_picture);
         profileName = (TextView) findViewById(R.id.dashboard_profile_name);
@@ -58,8 +61,28 @@ public class DashboardActivity extends ActionBarActivity {
 
         //Initialize Action Bar
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Dashboard");
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setElevation(0);//Remove elevation for API 5.0 and beyond
+
+        //Navigation View Perks
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                int itemId = item.getItemId();
+                switch (itemId){
+                    case R.id.navigation_item_histori:
+                        startActivity(new Intent(DashboardActivity.this, HistoryActivity.class));
+                        item.setChecked(true);
+                        drawerLayout.closeDrawers();
+                        item.setChecked(false);
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
 
         SharedPreferences shared = getSharedPreferences("PICKLEUSER", MODE_PRIVATE);
         email = shared.getString("email","");
@@ -107,7 +130,7 @@ public class DashboardActivity extends ActionBarActivity {
                     nama = data.getString("nama");
                     photoUrl = data.getString("photo");
                     level = data.getString("level");
-                    star = data.getInt("star");
+                    star = data.getInt("stars");
                     exp = data.getInt("exp");
                     memberSince2 = data.getString("memberSince");
                     sampahPlastik = data.getInt("sampahPlastik");

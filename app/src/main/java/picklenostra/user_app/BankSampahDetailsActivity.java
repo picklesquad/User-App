@@ -1,5 +1,6 @@
 package picklenostra.user_app;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -19,16 +20,18 @@ public class BankSampahDetailsActivity extends AppCompatActivity {
 
     private TextView namaBank, lokasiBank, jumlahNasabahBank, jenisSampahBank;
     private int idBank;
-    private final String URL = "http://private-74bbc-apiuser1.apiary-mock.com/bank/%1$s";
+    private final String URL = "http://private-74bbc-apiuser1.apiary-mock.com/bank/getDetail/idBank";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bank_sampah_details);
 
-        //Initialize Action Bar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Details");
+        //Initialize Action Bar.
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Detail Bank Sampah");
+        actionBar.setElevation(0);
 
         //Initialize
         namaBank = (TextView) findViewById(R.id.banksampahdetails_namabank);
@@ -50,14 +53,20 @@ public class BankSampahDetailsActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject responseObject = new JSONObject(response);
-                    JSONObject bank = responseObject.getJSONObject("bank");
-                    String namaBankSampah = bank.getString("namaBank");
-                    String alamatBankSampah = bank.getString("alamatBank");
-                    int totalNasabah = bank.getInt("totalNasabah");
+                    JSONObject data = responseObject.getJSONObject("data");
+                    String namaBankSampah = data.getString("namaBank");
+                    String alamatBankSampah = data.getString("lokasi");
+                    String deskripsiAlamatBankSampah = data.getString("lokasiDesc");
+                    double latitude = data.getDouble("lat");
+                    double longitude = data.getDouble("lng");
+                    String narahubung = data.getString("narahubung");
+                    String phoneNumber = data.getString("phoneNumber");
+                    int jumlahNasabah = data.getInt("jumlahNasabah");
+                    boolean isSubscribed = data.getBoolean("isSubscribed");
 
                     namaBank.setText(namaBankSampah);
                     lokasiBank.setText(alamatBankSampah);
-                    jumlahNasabahBank.setText(totalNasabah+" Orang");
+                    jumlahNasabahBank.setText(jumlahNasabah+" Orang");
 
                 } catch (JSONException e) {
                     e.printStackTrace();

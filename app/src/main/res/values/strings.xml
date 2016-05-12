@@ -1,6 +1,7 @@
 <resources>
     <!--Strings related to App and Activity (GLOBAL)-->
     <string name="app_name">User-App</string>
+    <string name="empty_string"> </string>
     <string name="title_activity_completing_form">CompletingForm</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_main">MainActivity</string>
@@ -23,6 +24,9 @@
     <string name="action_edit_profil">Edit Profil</string>
     <string name="action_histori">Histori</string>
     <string name="action_pengaturan">Pengaturan</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

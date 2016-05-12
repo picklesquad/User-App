@@ -64,8 +64,8 @@ public class SearchWithMapActivity extends ActionBarActivity implements
     private ArrayList<SearchWithMapModel> listBankSampah;
     private SearchWithMapAdapter adapter;
 
-    private final int INTERVAL = 1000 * 30;
-    private final String URL = "http://private-74bbc-apiuser1.apiary-mock.com/search?loc=location";
+    private final int INTERVAL = 1000 * 60;
+    private final String URL = "http://private-74bbc-apiuser1.apiary-mock.com/search?query=query";
     private final int EARTH_RADIUS = 6371;
 
     @Override
@@ -204,19 +204,20 @@ public class SearchWithMapActivity extends ActionBarActivity implements
     }
 
     private void volleyRequest(){
-        StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject responseObject = new JSONObject(response);
-                    JSONArray banks = responseObject.getJSONArray("bank");
-                    for(int i = 0; i < banks.length(); i++){
-                        JSONObject bank = (JSONObject) banks.get(i);
-                        int idBank = bank.getInt("id");
+                    JSONArray datas = responseObject.getJSONArray("data");
+                    for(int i = 0; i < datas.length(); i++){
+                        JSONObject bank = (JSONObject) datas.get(i);
+                        int idBank = bank.getInt("idBank");
                         String namaBank = bank.getString("namaBank");
-                        String alamatBank = bank.getString("alamatBank");
-                        double latitude = bank.getDouble("latitude");
-                        double longitude = bank.getDouble("longitude");
+                        String alamatBank = bank.getString("locationName");
+                        String deskripsiAlamatBank = bank.getString("locationDesc");
+                        double latitude = bank.getDouble("locationLat");
+                        double longitude = bank.getDouble("locationLng");
                         double jarak = distance(curLat,curLong,latitude,longitude);
 
                         //SetMarker
@@ -235,7 +236,9 @@ public class SearchWithMapActivity extends ActionBarActivity implements
                     Collections.sort(listBankSampah, new Comparator<SearchWithMapModel>() {
                         @Override
                         public int compare(SearchWithMapModel lhs, SearchWithMapModel rhs) {
-                            return Double.toString(lhs.getJarak()).compareTo(Double.toString(rhs.getJarak()));
+                            double l = lhs.getJarak();
+                            double r = rhs.getJarak();
+                            return l < r ? -1 : l == r ? 0 : 1;
                         }
                     });
                 } catch (JSONException e) {
