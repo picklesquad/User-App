@@ -217,7 +217,9 @@ public class SearchWithMapActivity extends ActionBarActivity implements
                     Collections.sort(listBankSampah, new Comparator<SearchWithMapModel>() {
                         @Override
                         public int compare(SearchWithMapModel lhs, SearchWithMapModel rhs) {
-                            return Double.toString(lhs.getJarak()).compareTo(Double.toString(rhs.getJarak()));
+                            double l = lhs.getJarak();
+                            double r = rhs.getJarak();
+                            return l < r ? -1 : l == r ? 0 : 1;
                         }
                     });
                 } catch (JSONException e) {
