@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:padding="8dp">
 
     <TextView
         android:id="@+id/transaksi_namaBankSampah"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nama Bank Sampah"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@color/text"
         android:layout_marginBottom="2dp"/>
@@ -19,9 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/transaksi_namaBankSampah"
         android:text="Jumlah: 0 Kg"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textColor="@color/text"
-        android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"/>
 
     <TextView
@@ -30,20 +34,29 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/transaksi_jumlahSampah"
         android:text="Transaksi: Rp 0,-"
-        android:textSize="18sp"
-        android:textColor="@color/text"
-        android:layout_marginTop="2dp"/>
+        android:textSize="16sp"
+        android:textColor="@color/text" />
 
     <TextView
-        android:id="@+id/transaksi_waktuTransaksi"
+        android:id="@+id/transaksi_tanggal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:text="01/01/2016 00:00"
-        android:textSize="18sp"
+        android:text="01/01/2016"
+        android:textSize="12sp"
         android:textColor="@color/text"
-        android:layout_marginTop="2dp"/>
+        android:layout_marginBottom="2dp"/>
 
+    <TextView
+        android:id="@+id/transaksi_waktu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/transaksi_tanggal"
+        android:text="18:00"
+        android:textSize="12sp"
+        android:textColor="@color/text" />
 
 </RelativeLayout>

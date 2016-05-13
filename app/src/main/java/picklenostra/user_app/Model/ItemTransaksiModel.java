@@ -4,8 +4,28 @@ package picklenostra.user_app.Model;
  * Created by Edwin on 5/10/2016.
  */
 public class ItemTransaksiModel {
+
+    private int idTransaksi;
     private String namaBankSampah, jumlahSampah, nominalTransaksi;
     private long waktu;
+
+    public int getIdTransaksi() {
+        return idTransaksi;
+    }
+
+    public void setIdTransaksi(int idTransaksi) {
+        this.idTransaksi = idTransaksi;
+    }
+
+    public int getStatusTransaksi() {
+        return statusTransaksi;
+    }
+
+    public void setStatusTransaksi(int statusTransaksi) {
+        this.statusTransaksi = statusTransaksi;
+    }
+
+    private int statusTransaksi;
 
     public String getNamaBankSampah() {
         return namaBankSampah;
