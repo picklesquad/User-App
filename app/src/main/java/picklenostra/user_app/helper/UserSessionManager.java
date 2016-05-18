@@ -6,6 +6,7 @@ package picklenostra.user_app.helper;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.util.HashMap;
 
@@ -40,6 +41,7 @@ public class UserSessionManager {
 
 
     public boolean checkLogin(){
+        Log.e("login", pref.getBoolean(IS_USER_LOGIN, false) + "");
         if(this.isUserLogin()){
             return true;
         }

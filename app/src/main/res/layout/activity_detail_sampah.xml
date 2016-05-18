@@ -1,6 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="2dp"
+    tools:context="com.pplnostra.detailsampah.DetailSampahActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            card_view:cardBackgroundColor="@color/light_grey"
+            android:id="@+id/cardPlastik">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                >
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sampah_plastik"
+                    android:textSize="16sp"
+                    android:text="Sampah Plastik "
+                    android:textColor="@color/text"
+                    android:layout_marginLeft="16dp"
+
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/jumlah_sampah_plastik"
+                    android:layout_below="@+id/sampah_plastik"
+                    android:text="32,5 kg"
+                    android:textColor="@color/text"
+                    android:layout_marginLeft="16dp"
+                    />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            card_view:cardBackgroundColor="@color/light_grey"
+            android:id="@+id/cardKertas">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sampah_kertas"
+                    android:textSize="16sp"
+                    android:text="Sampah Kertas"
+                    android:textColor="@color/text"
+                    android:layout_marginLeft="16dp"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/jumlah_sampah_kertas"
+                    android:layout_below="@+id/sampah_kertas"
+                    android:text="20 kg"
+                    android:textColor="@color/text"
+                    android:layout_marginLeft="16dp"
+                    />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            card_view:cardBackgroundColor="@color/light_grey"
+            android:id="@+id/cardLogam">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sampah_besi"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:text="Sampah Besi"
+                    android:textColor="@color/text"
+                    android:layout_marginLeft="16dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/jumlah_sampah_besi"
+                    android:layout_below="@+id/sampah_besi"
+                    android:text="76,23 kg"
+                    android:textColor="@color/text"
+                    android:layout_marginLeft="16dp"
+                    />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            card_view:cardBackgroundColor="@color/light_grey"
+            android:id="@+id/cardBotol">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sampah_botol"
+                    android:textSize="16sp"
+                    android:text="Sampah Botol"
+                    android:textStyle="bold"
+                    android:textColor="@color/text"
+                    android:layout_marginLeft="16dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/jumlah_sampah_botol"
+                    android:layout_below="@+id/sampah_botol"
+                    android:text="17 pcs"
+                    android:textColor="@color/text"
+                    android:layout_marginLeft="16dp"
+                    />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
 </LinearLayout>

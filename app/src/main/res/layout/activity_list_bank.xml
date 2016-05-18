@@ -8,5 +8,24 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/id_list_bank"></ListView>
+        android:id="@+id/id_list_bank"/>
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/list_bank_loading"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:indeterminate="true"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:id="@+id/not_found"
+        android:visibility="gone"
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:textSize="16dp"
+        android:text="Belum ada transaksi"/>
 </RelativeLayout>

@@ -47,8 +47,11 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".CompleteFormActivity" />
         <activity android:name=".DashboardActivity" />
+        <activity android:name=".DetailSampahActivity" />
         <activity android:name=".ListBankActivity" />
-        <activity android:name=".SearchWithMapActivity"></activity>
+        <activity android:name=".SearchWithMapActivity" />
+        <activity android:name=".WithdrawFormActivity"
+            android:label="@string/title_activity_withdraw_form" />
     </application>
 
 </manifest>

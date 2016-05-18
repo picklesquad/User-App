@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
 
 import picklenostra.user_app.helper.UserSessionManager;
 
@@ -11,13 +15,14 @@ import static picklenostra.user_app.R.layout.activity_splash_screen;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private final int DELAY_SPLASHSCREEN = 3000;
+    private final int DELAY_SPLASHSCREEN = 1000;
     UserSessionManager session;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(activity_splash_screen);
 
         session = new UserSessionManager(getApplicationContext());
@@ -26,7 +31,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
                 Intent intent;
-
+//                Log.e("checkLoginFb", "tes " + AccessToken.getCurrentAccessToken().getToken());
                 if (session.checkLogin()) {
                     intent = new Intent(SplashScreen.this, DashboardActivity.class);
                 } else {

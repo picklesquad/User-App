@@ -43,7 +43,7 @@
                         android:textStyle="bold"
                         android:textSize="20dp"
                         android:id="@+id/dashboard_profile_name"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="16dp"
                         android:layout_marginTop="4dp"
                         />
 
@@ -53,17 +53,17 @@
                         android:text="Member since"
                         android:textSize="16sp"
                         android:id="@+id/dashboard_member_since"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="16dp"
                         />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Newbie"
+                        android:text="Exp"
                         android:textSize="16sp"
                         android:id="@+id/dashboard_member_experience"
                         android:textStyle="bold"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="16dp"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -101,7 +101,7 @@
                             android:layout_toRightOf="@+id/balance_photo"
                             android:layout_alignParentTop="true"
                             android:textSize="16sp"
-                            android:text="Your Balance "
+                            android:text="Saldo anda"
                             android:textColor="@color/white"
                             android:layout_marginLeft="16dp" />
 
@@ -111,7 +111,7 @@
                             android:id="@+id/balance_content"
                             android:layout_toRightOf="@+id/balance_photo"
                             android:layout_below="@+id/balance_name"
-                            android:text="200.000"
+                            android:text="Rp. 0,00"
                             android:textColor="@color/white"
                             android:layout_marginLeft="16dp"
                             />
@@ -147,7 +147,7 @@
                             android:layout_toRightOf="@+id/trash_photo"
                             android:layout_alignParentTop="true"
                             android:textSize="16sp"
-                            android:text="You have sold"
+                            android:text="Jumlah sampah disetor"
                             android:textColor="@color/white"
                             android:layout_marginLeft="16dp"
                             />
@@ -158,7 +158,7 @@
                             android:id="@+id/trash_content"
                             android:layout_toRightOf="@+id/trash_photo"
                             android:layout_below="@+id/trash_name"
-                            android:text="20 kg"
+                            android:text="0 kg dan 0 botol"
                             android:textColor="@color/white"
                             android:layout_marginLeft="16dp"
                             />
@@ -193,7 +193,7 @@
                             android:layout_toRightOf="@+id/level_photo"
                             android:layout_alignParentTop="true"
                             android:textSize="16sp"
-                            android:text="Your level"
+                            android:text="Level anda"
                             android:textColor="@color/white"
                             android:layout_marginLeft="16dp"
                             />

@@ -8,10 +8,11 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:gravity="bottom">
 
-    <TextView
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/splash_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ini Header"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        android:layout_margin="12dp"
+        android:src="@drawable/brand"/>
 
 </LinearLayout>

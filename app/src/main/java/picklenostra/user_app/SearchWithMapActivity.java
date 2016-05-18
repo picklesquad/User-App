@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -66,6 +67,8 @@ public class SearchWithMapActivity extends ActionBarActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_with_map);
+        getSupportActionBar().setTitle("Cari Bank Sampah");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Initialize
         listView = (ListView) findViewById(R.id.searchwithmap_listview);
@@ -128,7 +131,7 @@ public class SearchWithMapActivity extends ActionBarActivity implements
     }
 
     private void setPositionToCamera(double latitude, double longitude){
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(latitude,longitude)).zoom(15).build();
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(latitude, longitude)).zoom(15).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
@@ -166,6 +169,17 @@ public class SearchWithMapActivity extends ActionBarActivity implements
             curLong = location.getLongitude();
             setPositionToCamera(curLat,curLong);
             setBlueCircleRadius(curLat,curLong);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

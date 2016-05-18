@@ -23,6 +23,11 @@
     <string name="action_edit_profil">Edit Profil</string>
     <string name="action_histori">Histori</string>
     <string name="action_pengaturan">Pengaturan</string>
+    <string name="title_activity_withdraw_form">WithdrawFormActivity</string>
+
+    <string name="request_withdraw_header">Request Withdraw</string>
+
+    <string name="API_URL">http://104.155.206.184:8080/pickle-0.1/user</string>
 
 
 </resources>
