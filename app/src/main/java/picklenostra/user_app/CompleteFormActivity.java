@@ -18,6 +18,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.crashlytics.android.Crashlytics;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,8 +60,8 @@ public class CompleteFormActivity extends AppCompatActivity {
         SharedPreferences shared = getSharedPreferences(getResources().getString(R.string.KEY_SHARED_PREF), MODE_PRIVATE);
         etName.setText(shared.getString("nama", ""));
         etEmail.setText(shared.getString("email", ""));
-        token = shared.getString("facebookToken","");
-        photo = shared.getString("facebookPhoto","");
+        token = getIntent().getExtras().getString("facebookToken", "");
+        photo = getIntent().getExtras().getString("facebookPhoto", "");
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +94,7 @@ public class CompleteFormActivity extends AppCompatActivity {
 
                 if(validation){
                     errorGender.setText(null);
-
+                    Log.e("photo1", "photo :" + photo);
 //                    Toast.makeText(getApplicationContext(), "Thank You!", Toast.LENGTH_SHORT).show();
                     volleyRequestRegister(nama, email, phoneNum, alamat, gender, photo, token);
                     Intent in = new Intent(CompleteFormActivity.this, DashboardActivity.class);
@@ -127,18 +128,22 @@ public class CompleteFormActivity extends AppCompatActivity {
             return false;
         } else {
             errorName.setText(null);
-
             return true;
         }
     }
 
     private boolean validatePhoneNumber() {
+        Log.e("tes nope", etPhoneNumber.getText().toString() + " " + etPhoneNumber.getText().toString().trim().length());
         if (etPhoneNumber.getText().toString().trim().isEmpty()) {
             errorPhoneNumber.setText("No. HP tidak boleh kosong");
             return false;
+        } else if (etPhoneNumber.getText().toString().trim().length() > 12 ||
+                etPhoneNumber.getText().toString().trim().length() < 8 ||
+                etPhoneNumber.getText().toString().trim().charAt(0) != '0') {
+            errorPhoneNumber.setText("No. HP tidak valid");
+            return false;
         } else {
             errorPhoneNumber.setText(null);
-
             return true;
         }
     }
@@ -158,7 +163,11 @@ public class CompleteFormActivity extends AppCompatActivity {
         return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(this, LoginActivity.class));
+    }
 
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
@@ -178,37 +187,38 @@ public class CompleteFormActivity extends AppCompatActivity {
     private void volleyRequestRegister(final String nama, final String email, final String phoneNum,
                                        final String alamat, final String gender, final String photo,
                                        final String fbToken){
-    StringRequest request =  new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-        @Override
-        public void onResponse(String response) {
-            try {
-                JSONObject responseObject = new JSONObject(response);
-                Log.e("response", response);
-            } catch (JSONException e) {
-
+        Log.e("photo2", "photo :" + photo);
+        StringRequest request =  new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject responseObject = new JSONObject(response);
+                    Log.e("response", response);
+                } catch (JSONException e) {
+                    Crashlytics.logException(e);
+                }
             }
-        }
-    }, new Response.ErrorListener(){
-        @Override
-        public void onErrorResponse(VolleyError error) {
-
-        }
-    }){
-        @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            Map<String, String> params = new HashMap<String, String>();
-            params.put("nama", nama);
-            params.put("email", email);
-            params.put("phoneNumber", phoneNum);
-            params.put("dateOfBirth", "10-10-2010");
-            params.put("gender", gender);
-            params.put("alamat", alamat);
-            params.put("fbToken", fbToken);
-            params.put("facebookPhoto", photo);
-            return params;
-        }
-    };
-    VolleyController.getInstance().addToRequestQueue(request);
-}
+        }, new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Crashlytics.logException(error.getCause());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("nama", nama);
+                params.put("email", email);
+                params.put("phoneNumber", phoneNum);
+                params.put("dateOfBirth", "10-10-2010");
+                params.put("gender", gender);
+                params.put("alamat", alamat);
+                params.put("fbToken", fbToken);
+                params.put("facebookPhoto", photo);
+                return params;
+            }
+        };
+        VolleyController.getInstance().addToRequestQueue(request);
+    }
 
 }

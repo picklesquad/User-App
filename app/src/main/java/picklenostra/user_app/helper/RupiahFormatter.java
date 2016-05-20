@@ -29,4 +29,15 @@ public class RupiahFormatter {
         String hsl = "Rp " + df.format(harga);
         return hsl;
     }
+
+    public static String format(String harga){
+        DecimalFormat df = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+        dfs.setCurrencySymbol("");
+        dfs.setMonetaryDecimalSeparator(',');
+        dfs.setGroupingSeparator('.');
+        df.setDecimalFormatSymbols(dfs);
+        String hsl = "Rp " + df.format(Double.parseDouble(harga));
+        return hsl;
+    }
 }

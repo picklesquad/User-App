@@ -7,31 +7,26 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONArray;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-
-import org.json.JSONException;
+import com.crashlytics.android.Crashlytics;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -44,12 +39,13 @@ import picklenostra.user_app.helper.VolleyController;
 
 public class WithdrawFormActivity extends ActionBarActivity {
 
-    private TextView etNominal, etTanggal, etJam, tvBankName, tvSaldo, errorNominal;
+    private TextView etNominal, etTanggal, etJam, tvBankName, tvSaldo, errorNominal, errorTanggal, errorWaktu;
     private ProgressBar progressBar;
     private String nominal, tanggal, jam;
     private Button submitButton;
     private String URL = "";
-    int day, year, month, hour, minute;
+    private int currentDay, currentYear, currentMonth, currentHour, currentMinute;
+    private int chosenDay, chosenYear, chosenMonth, chosenHour, chosenMinute;
     private Calendar calendar;
     private final int DATEPICKER_ID = 1;
     private final int TIMEPICKER_ID = 2;
@@ -62,11 +58,11 @@ public class WithdrawFormActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-        hour = calendar.get(Calendar.HOUR_OF_DAY);
-        minute = calendar.get(Calendar.MINUTE);
+        chosenYear = currentYear = calendar.get(Calendar.YEAR);
+        chosenMonth = currentMonth = calendar.get(Calendar.MONTH);
+        chosenDay = currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        chosenHour = currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        chosenMinute = currentMinute = calendar.get(Calendar.MINUTE);
 
         URL = getResources().getString(R.string.API_URL) + "/requestWithdraw";
 
@@ -76,12 +72,14 @@ public class WithdrawFormActivity extends ActionBarActivity {
         tvBankName = (TextView) findViewById(R.id.tvNamaBank);
         tvSaldo = (TextView) findViewById(R.id.tvSaldo);
         errorNominal = (TextView) findViewById(R.id.errorNominal);
+        errorTanggal = (TextView) findViewById(R.id.errorTanggal);
+        errorWaktu = (TextView) findViewById(R.id.errorWaktu);
         submitButton = (Button) findViewById(R.id.btnNext);
         progressBar = (ProgressBar) findViewById(R.id.withdraw_loading);
         progressBar.getIndeterminateDrawable().setColorFilter(0xFF80CBC4, android.graphics.PorterDuff.Mode.SRC_ATOP);
 
-        showDate(day, month, year);
-        showTime(hour, minute);
+        showDate(currentDay, currentMonth, currentYear);
+        showTime(currentHour, currentMinute);
 
         tvBankName.setText(getIntent().getExtras().getString("namaBank"));
         final double saldo = getIntent().getExtras().getDouble("saldo");
@@ -104,7 +102,15 @@ public class WithdrawFormActivity extends ActionBarActivity {
 
             @Override
             public void onClick(View v) {
+                boolean invalid = false;
                 if (!validateNominal(saldo)) {
+                    invalid = true;
+                }
+                if (!validateTanggal() || !validateWaktu()) {
+                    invalid = true;
+                }
+
+                if (invalid) {
                     return;
                 }
                 progressBar.setVisibility(View.VISIBLE);
@@ -139,7 +145,6 @@ public class WithdrawFormActivity extends ActionBarActivity {
                     int idUser = shared.getInt("idUser", 0);
                     String idBank = "" + getIntent().getExtras().getInt("idBank");
 
-                    Log.e("test", token + " " + idUser + " " + idBank + " " + nominal + " " + waktu);
                     volleyRequest(token, idUser + "", idBank, nominal, waktu + "");
                 }
             }
@@ -148,8 +153,11 @@ public class WithdrawFormActivity extends ActionBarActivity {
 
     private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
         @Override
-        public void onDateSet(DatePicker arg0, int year, int month, int day) {
-            showDate(day, month, year);
+        public void onDateSet(DatePicker arg0, int selectedYear, int selectedMonth, int selectedDay) {
+            chosenDay = selectedDay;
+            chosenMonth = selectedMonth;
+            chosenYear = selectedYear;
+            showDate(selectedDay, selectedMonth, selectedYear);
         }
     };
 
@@ -157,6 +165,8 @@ public class WithdrawFormActivity extends ActionBarActivity {
             new TimePickerDialog.OnTimeSetListener() {
                 public void onTimeSet(TimePicker view, int selectedHour,
                                       int selectedMinute) {
+                    chosenHour = selectedHour;
+                    chosenMinute = selectedMinute;
                     showTime(selectedHour, selectedMinute);
                 }
             };
@@ -165,9 +175,9 @@ public class WithdrawFormActivity extends ActionBarActivity {
     protected Dialog onCreateDialog(int id) {
         // TODO Auto-generated method stub
         if (id == DATEPICKER_ID) {
-            return new DatePickerDialog(this, myDateListener, year, month, day);
+            return new DatePickerDialog(this, myDateListener, chosenYear, chosenMonth, chosenDay);
         } else if (id == TIMEPICKER_ID) {
-            return new TimePickerDialog(this, timePickerListener, hour, minute, true);
+            return new TimePickerDialog(this, timePickerListener, chosenHour, chosenMinute, true);
         }
         return null;
     }
@@ -187,15 +197,82 @@ public class WithdrawFormActivity extends ActionBarActivity {
         }
     }
 
+    private boolean validateTanggal() {
+        currentYear = calendar.get(Calendar.YEAR);
+        currentMonth = calendar.get(Calendar.MONTH);
+        currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        Log.e("day skrg", currentDay + "");
+        Log.e("day dipilih", chosenDay + "");
+        Log.e("month skrg", currentDay + "");
+        Log.e("month dipilih", chosenMonth + "");
+        Log.e("year skrg", currentYear + "");
+        Log.e("year dipilih", chosenYear + "");
+        boolean result;
+        if (chosenYear < currentYear) {
+            result = false;
+        } else if (chosenYear == currentYear){
+            if (chosenMonth < currentMonth) {
+                result = false;
+            } else if (chosenMonth == currentMonth) {
+                result = chosenDay >= currentDay;
+            } else {
+                result = true;
+            }
+        } else {
+            result = true;
+        }
+
+        if (result) {
+            errorTanggal.setText(null);
+        } else {
+            errorTanggal.setText("Tanggal tidak valid");
+        }
+        return result;
+    }
+
+    private boolean validateWaktu() {
+        currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        currentMinute = calendar.get(Calendar.MINUTE);
+        Log.e("hour skrg", currentHour + "");
+        Log.e("hour dipilih", chosenHour + "");
+        Log.e("minute skrg", currentMinute + "");
+        Log.e("minute dipilih", chosenMinute + "");
+        boolean result;
+        if (chosenDay == currentDay) {
+            if (chosenHour < currentHour) {
+                result = false;
+            } else if (chosenHour == currentHour) {
+                result = chosenMinute >= currentMinute;
+            } else {
+                result = true;
+            }
+        } else {
+            result = true;
+        }
+
+        if (result) {
+            errorWaktu.setText(null);
+        } else {
+            errorWaktu.setText("Jam tidak valid");
+        }
+        return result;
+    }
+
+
     private void volleyRequest(final String token,
                                final String idUser,
                                final String idBank,
                                final String jumlah,
                                final String waktu) {
+
+        Log.e("token", token);
+        Log.e("idUSer", idUser);
+        Log.e("idBank", idBank);
+        Log.e("jumla", jumlah);
+        Log.e("waktu", waktu);
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>(){
             @Override
             public void onResponse(String response) {
-
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     Log.e("response", jsonResponse.toString());
@@ -212,14 +289,14 @@ public class WithdrawFormActivity extends ActionBarActivity {
                         Toast.makeText(getApplicationContext(), jsonResponse.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
-
+                    Crashlytics.logException(e);
                 }
             }
         }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Crashlytics.logException(error.getCause());
             }
         }){
             @Override
@@ -254,7 +331,7 @@ public class WithdrawFormActivity extends ActionBarActivity {
     @Override
     public void onBackPressed() {
         finish();
-        startActivity(new Intent(this, ListBankActivity.class));
+        startActivity(new Intent(this, ListLanggananActivity.class));
     }
 
     private void showDate(int day, int month, int year) {

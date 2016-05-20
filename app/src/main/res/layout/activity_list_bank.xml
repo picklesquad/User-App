@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListBankActivity">
+    tools:context=".ListLanggananActivity">
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/id_list_bank"/>
+        android:id="@+id/id_list_bank"
+        android:dividerHeight="0.5dp"/>
     <ProgressBar
         android:visibility="gone"
         android:id="@+id/list_bank_loading"
@@ -27,5 +28,5 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:textSize="16dp"
-        android:text="Belum ada transaksi"/>
+        android:text="Belum ada langganan"/>
 </RelativeLayout>

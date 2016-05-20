@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bank AEON"
+                android:text="Bank ABC"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:id="@+id/id_bank_name"
@@ -31,7 +31,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rp 150000"
+                android:text="Rp 0,00"
                 android:textSize="12sp"
                 android:id="@+id/id_saldo_in_bank"
                 />
@@ -46,7 +46,7 @@
             android:layout_height="32dp"
             android:text="Withdraw"
             android:textColor="#fff"
-            android:background="@color/primaryDark"
+            android:background="@drawable/style_rounded_button"
             android:textSize="14sp"
             android:id="@+id/id_withdraw_button"
             />

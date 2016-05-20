@@ -1,0 +1,35 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="picklenostra.user_app.Fragment.TransaksiFragment">
+
+    <ListView
+        android:id="@+id/transaksi_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/textHint"
+        android:dividerHeight="0.5dp"/>
+
+    <ProgressBar
+        android:id="@+id/transaksi_loading"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:indeterminate="true"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/transaksi_not_found"
+        android:visibility="gone"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:textSize="16dp"
+        android:text="Belum ada transaksi"/>
+
+</FrameLayout>

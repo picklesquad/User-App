@@ -3,38 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="100"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="picklenostra.user_app.SearchWithMapActivity">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="40">
+        android:layout_height="250dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="100">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="20"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:text="Bank Sampah"
-                android:textSize="16sp"
-                android:textStyle="bold" />
             <fragment
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="80"
+                android:layout_height="match_parent"
                 android:name="com.google.android.gms.maps.MapFragment"
                 android:id="@+id/map"/>
 
@@ -45,11 +28,17 @@
     <ListView
         android:id="@+id/searchwithmap_listview"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="60"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_height="wrap_content"
         android:cacheColorHint="@android:color/transparent"
         android:divider="@color/textHint"
-        android:dividerHeight="0dp"/>
+        android:dividerHeight="0.5dp"/>
 
+    <ProgressBar
+        android:id="@+id/search_loading"
+        android:layout_marginTop="30dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:indeterminate="true"
+        android:layout_gravity="center"
+        />
 </LinearLayout>

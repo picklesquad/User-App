@@ -1,11 +1,8 @@
 package picklenostra.user_app;
 
-import android.app.ActionBar;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,37 +12,34 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.crashlytics.android.Crashlytics;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import picklenostra.user_app.adapter.ListBankAdapter;
+import picklenostra.user_app.adapter.ItemLanggananAdapter;
 import picklenostra.user_app.helper.VolleyController;
 import picklenostra.user_app.model.BankModel;
 
 /**
  * Created by marteinstein on 08/05/2016.
  */
-public class ListBankActivity extends ActionBarActivity {
+public class ListLanggananActivity extends ActionBarActivity {
 
     private ListView listBank;
     private String url = "";
     private ArrayList<BankModel> list = new ArrayList<>();
-    ListBankActivity thisClass = this;
-    private ListBankAdapter adapter;
+    ListLanggananActivity thisClass = this;
+    private ItemLanggananAdapter adapter;
     private ProgressBar progressBar;
     private TextView tvNotFound;
 
@@ -71,14 +65,14 @@ public class ListBankActivity extends ActionBarActivity {
 
         volleyRequest(token, idUser);
 
-        adapter = new ListBankAdapter(list, ListBankActivity.this);
+        adapter = new ItemLanggananAdapter(list, ListLanggananActivity.this);
         listBank.setAdapter(adapter);
 
         listBank.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("tes", "tessss");
-                Toast.makeText(ListBankActivity.this, "bank " + ((BankModel) adapter.getItem(position)).getBankName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ListLanggananActivity.this, "bank " + ((BankModel) adapter.getItem(position)).getBankName(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -108,13 +102,13 @@ public class ListBankActivity extends ActionBarActivity {
                         tvNotFound.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {
-
+                    Crashlytics.logException(e);
                 }
             }
         }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Crashlytics.logException(error.getCause());
             }
         }){
             @Override

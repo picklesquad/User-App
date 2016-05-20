@@ -1,6 +1,6 @@
 <resources>
     <!--Strings related to App and Activity (GLOBAL)-->
-    <string name="app_name">User-App</string>
+    <string name="app_name">Pickle</string>
     <string name="title_activity_completing_form">CompletingForm</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_main">MainActivity</string>
@@ -12,7 +12,7 @@
     <!--Strings related to App Config-->
     <string name="facebook_app_id">192983494404562</string>
     <string name="KEY_SHARED_PREF">PICKLEUSER</string>
-    <string name="google_api_key">AIzaSyDwNserJj1vTzc-JB3UH6ISHgUojKA7XxM</string>
+    <string name="google_api_key">AIzaSyAlqsxb_38U6mt-fIHJVX0fUq5_Dt-iwbM</string>
 
     <!--Strings related to menus-->
     <string name="action_search_white">Search</string>
@@ -27,7 +27,7 @@
 
     <string name="request_withdraw_header">Request Withdraw</string>
 
-    <string name="API_URL">http://104.155.206.184:8080/pickle-0.1/user</string>
+    <string name="API_URL">http://104.155.206.184:8080/api/user</string>
 
-
+    <string name="empty_string"></string>
 </resources>

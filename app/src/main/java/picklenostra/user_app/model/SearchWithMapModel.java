@@ -7,11 +7,19 @@ import java.io.Serializable;
  */
 public class SearchWithMapModel implements Serializable {
     
+    private int id;
     private String pictureUrl;
     private String namaBank;
     private String namaJalan;
     private double jarak;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getpictureUrl() {
         return pictureUrl;

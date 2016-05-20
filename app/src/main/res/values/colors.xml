@@ -8,7 +8,7 @@
     <color name="textHint">#9e9e9e</color>
     <color name="text">#616161</color>
     <color name="blue">#42A5F5</color>
-    <color name="light_grey">#e0e0e0</color>
+    <color name="light_grey">#f3f3f3</color>
     <color name="orange">#FFA000</color>
     <color name="red">#DD0000</color>
 </resources>

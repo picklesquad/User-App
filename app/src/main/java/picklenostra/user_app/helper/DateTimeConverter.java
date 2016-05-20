@@ -17,7 +17,7 @@ public class DateTimeConverter {
 
     public static String[] generateTanggalWaktu(long time) {
         Date date = new Date(time);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         return formatter.format(date).split(" ");
     }
 }

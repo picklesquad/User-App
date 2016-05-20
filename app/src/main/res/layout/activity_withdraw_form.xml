@@ -20,23 +20,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:id="@+id/tvNamaBank"
-                android:layout_toRightOf="@+id/nominal_picture"
-                android:layout_alignParentTop="true"
                 android:textSize="18sp"
                 android:text="Bank ABC"
                 android:textStyle="bold"
-                android:layout_marginLeft="16dp" />
+                android:layout_marginLeft="12dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:id="@+id/tvSaldo"
-                android:layout_toRightOf="@+id/nominal_picture"
-                android:layout_alignParentTop="true"
                 android:textSize="16sp"
                 android:text="Saldo anda Rp. 0,00"
-                android:layout_marginLeft="16dp" />
+                android:layout_marginLeft="12dp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -75,6 +71,7 @@
                         android:textSize="10sp"
                         android:layout_gravity=""
                         android:gravity="right"
+                        android:layout_marginTop="4dp"
                         android:textColor="@color/red"/>
 
                 </LinearLayout>
@@ -104,16 +101,34 @@
                     android:adjustViewBounds="true"
                     android:src="@drawable/ic_calendar"/>
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/wrapTanggal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tvTanggal"
+                    android:orientation="horizontal"
                     android:layout_toRightOf="@+id/tanggal_picture"
-                    android:layout_alignParentTop="true"
-                    android:textSize="16sp"
-                    android:text="Tanggal"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="12dp" />
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvTanggal"
+                        android:textSize="16sp"
+                        android:text="Tanggal"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="12dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/errorTanggal"
+                        android:textSize="10sp"
+                        android:layout_gravity=""
+                        android:gravity="right"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/red"/>
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/etTanggal"
@@ -121,13 +136,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/tanggal_picture"
-                    android:layout_below="@+id/tvTanggal"
+                    android:layout_below="@+id/wrapTanggal"
                     android:layout_marginLeft="12dp"
                     android:textSize="18sp"
                     android:textColor="?attr/editTextColor"
                     android:background="?attr/editTextBackground"
                     android:textAppearance="?android:attr/textAppearanceMediumInverse"/>
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -143,16 +157,34 @@
                     android:adjustViewBounds="true"
                     android:src="@drawable/ic_time"/>
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/wrapWaktu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tvTime"
+                    android:orientation="horizontal"
                     android:layout_toRightOf="@+id/jam_picture"
-                    android:layout_alignParentTop="true"
-                    android:textSize="16sp"
-                    android:text="Jam"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="12dp" />
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvWaktu"
+                        android:textSize="16sp"
+                        android:text="Jam"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="12dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/errorWaktu"
+                        android:textSize="10sp"
+                        android:layout_gravity=""
+                        android:gravity="right"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/red"/>
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/etTime"
@@ -160,7 +192,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/jam_picture"
-                    android:layout_below="@+id/tvTime"
+                    android:layout_below="@+id/wrapWaktu"
                     android:layout_marginLeft="12dp"
                     android:textSize="18sp"
                     android:textColor="?attr/editTextColor"
@@ -175,7 +207,7 @@
                 android:text="KIRIM"
                 android:textColor="#fff"
                 android:textSize="16dp"
-                android:background="@color/primaryDark"
+                android:background="@drawable/style_rounded_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

@@ -1,48 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="24dp"
-    android:layout_marginBottom="24dp"
-    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-    android:layout_marginRight="@dimen/activity_horizontal_margin">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/searchwithmap_picture"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:src="@drawable/ic_place"/>
-
-    <TextView
-        android:id="@+id/searchwithmap_namaBank"
+    <LinearLayout
+        android:id="@+id/searchwithmap_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/searchwithmap_picture"
-        android:text="Bank Sampah Satu Dua"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:textSize="16sp"
-        android:textStyle="bold"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/searchwithmap_namaJalan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/searchwithmap_picture"
-        android:layout_below="@id/searchwithmap_namaBank"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:textSize="10sp"
-        android:text="JL Werkudara No 18, Surakarta"/>
+        <TextView
+            android:id="@+id/searchwithmap_namaBank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bank Sampah Satu Dua"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+
+        <TextView
+            android:id="@+id/searchwithmap_namaJalan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="12dp"
+            android:textSize="12sp"
+            android:text="JL Werkudara No 18, Surakarta"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/searchwithmap_jarak"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAlignment="textEnd"
+        android:gravity="center_vertical"
+        android:paddingRight="12dp"
         android:text="0,0 Km"
         android:textStyle="bold"/>
 
-</RelativeLayout>
+</LinearLayout>

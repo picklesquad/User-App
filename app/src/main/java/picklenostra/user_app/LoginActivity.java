@@ -20,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.crashlytics.android.Crashlytics;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -33,6 +34,7 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -53,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private String name, email, birthday, token, facebookId;
     private String urlCheckComplete = "";
-
+    private final String PIC_URL_CONSTANTS = "/picture?type=large&redirect=false&width=200&height=200";
     private ProgressBar progressBar;
 
     @Override
@@ -88,11 +90,8 @@ public class LoginActivity extends AppCompatActivity {
                                     name = object.optString("name").toString();
                                     email = object.optString("email").toString();
                                     birthday = object.optString("birthday").toString();
-                                    String picture = "http://graph.facebook.com/" + facebookId + "/picture?type=large";
-
-                                    token = AccessToken.getCurrentAccessToken().getToken();
-
-                                    volleyRequestCheckComplete(email, picture, token);
+                                    String picture = "http://graph.facebook.com/" + facebookId + PIC_URL_CONSTANTS;
+                                    volleyRequestFBPhoto(picture);
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -140,8 +139,6 @@ public class LoginActivity extends AppCompatActivity {
                         SharedPreferences shared = getSharedPreferences(getResources().getString(R.string.KEY_SHARED_PREF), MODE_PRIVATE);
                         SharedPreferences.Editor editor = shared.edit();
                         editor.putString("email", email);
-                        editor.putString("facebookPhoto", picture);
-                        editor.putString("facebookToken", token);
                         editor.commit();
 
                         Intent in = new Intent(LoginActivity.this, DashboardActivity.class);
@@ -156,17 +153,20 @@ public class LoginActivity extends AppCompatActivity {
                         editor.commit();
 
                         Intent in = new Intent(LoginActivity.this, CompleteFormActivity.class);
+                        in.putExtra("facebookPhoto", picture);
+                        in.putExtra("facebookToken", token);
+
                         startActivity(in);
                         finish();
                     }
                 } catch (JSONException e) {
-
+                    Crashlytics.logException(e);
                 }
             }
         }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Crashlytics.logException(error.getCause());
             }
         }){
             @Override
@@ -198,5 +198,32 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         Log.e("keyhash: ", keyhash);
+    }
+
+    private void volleyRequestFBPhoto(final String picUrl){
+        StringRequest request =  new StringRequest(Request.Method.GET, picUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                String theRealUrl = "";
+                try {
+                    JSONObject responseObject = new JSONObject(response);
+                    JSONObject datas = responseObject.getJSONObject("data");
+                    theRealUrl = datas.getString("url");
+//                    Log.e("real url", theRealUrl);
+                    token = AccessToken.getCurrentAccessToken().getToken();
+                    volleyRequestCheckComplete(email, theRealUrl, token);
+                } catch (JSONException e) {
+
+                }
+            }
+        }, new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+
+        };
+        VolleyController.getInstance().addToRequestQueue(request);
     }
 }

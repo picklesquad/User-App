@@ -2,6 +2,7 @@ package picklenostra.user_app.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,6 @@ public class SearchWithMapAdapter extends BaseAdapter {
             viewHolder.namaBank = (TextView) view.findViewById(R.id.searchwithmap_namaBank);
             viewHolder.namaJalan = (TextView) view.findViewById(R.id.searchwithmap_namaJalan);
             viewHolder.jarak = (TextView) view.findViewById(R.id.searchwithmap_jarak);
-            viewHolder.picture = (ImageView) view.findViewById(R.id.searchwithmap_picture);
             view.setTag(viewHolder);
         }
         else{
@@ -67,8 +67,17 @@ public class SearchWithMapAdapter extends BaseAdapter {
         viewHolder.namaBank.setText(searchWithMapModel.getNamaBank());
         viewHolder.namaJalan.setText(searchWithMapModel.getNamaJalan());
         viewHolder.jarak.setText(searchWithMapModel.getJarak() + " Km");
-        Picasso.with(activity).load(searchWithMapModel.getpictureUrl()).into(viewHolder.picture);
-
+//
+//        convertView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.e("test", "test button " + listBank.get(position).getBankName());
+//                progressBar.setVisibility(View.VISIBLE);
+//                withdrawBtn.setVisibility(View.GONE);
+//                volleyRequestCheckFirstTransaction(listBank.get(position).getId(), position,
+//                        progressBar, withdrawBtn);
+//            }
+//        });
         return view;
     }
 

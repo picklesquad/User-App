@@ -1,0 +1,35 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="picklenostra.user_app.Fragment.WithdrawalFragment">
+
+    <ListView
+        android:id="@+id/withdrawal_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@color/textHint"
+        android:dividerHeight="0.5dp"/>
+
+    <ProgressBar
+        android:id="@+id/withdrawal_loading"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:indeterminate="true"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/withdrawal_not_found"
+        android:visibility="gone"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:textSize="16dp"
+        android:text="Belum ada withdrawal"/>
+
+</FrameLayout>

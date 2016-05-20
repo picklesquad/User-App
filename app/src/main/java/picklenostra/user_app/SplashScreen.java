@@ -15,7 +15,7 @@ import static picklenostra.user_app.R.layout.activity_splash_screen;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private final int DELAY_SPLASHSCREEN = 1000;
+    private final int DELAY_SPLASHSCREEN = 1500;
     UserSessionManager session;
 
 
@@ -43,5 +43,11 @@ public class SplashScreen extends AppCompatActivity {
                 finish();
             }
         }, DELAY_SPLASHSCREEN);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        FacebookSdk.sdkInitialize(getApplicationContext());
     }
 }

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="picklenostra.user_app.BankSampahDetailsActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/banksampahdetails_framelayout"
+            android:layout_width="match_parent"
+            android:layout_height="256dp">
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/image_bank"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bank_picture2"/>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/banksampahdetails_namabank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bank Name"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                style="@style/TextShadow"
+                android:layout_gravity="top|left"
+                android:layout_margin="16dp"/>
+
+            <Button
+                android:visibility="gone"
+                android:id="@+id/subscribe_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Berlangganan"
+                android:layout_gravity="bottom|right"
+                android:background="@drawable/style_rounded_button"
+                android:textColor="@color/white"
+                android:padding="10dp"
+                android:layout_margin="20dp"/>
+        </FrameLayout>
+
+        <ProgressBar
+            android:id="@+id/bank_loading"
+            android:layout_below="@+id/banksampahdetails_framelayout"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:indeterminate="true"
+            android:layout_gravity="center"/>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/bank_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/banksampahdetails_framelayout"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="70"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvIsSubscribed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(Belum berlangganan)"
+                    android:textSize="12sp"
+                    android:textColor="@color/text"
+                    android:layout_marginBottom="10dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lokasi"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/text"
+                    />
+                <TextView
+                    android:id="@+id/banksampahdetails_lokasi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lokasi Bank"
+                    android:textSize="16sp"
+                    android:textColor="@color/text"
+                    />
+                <TextView
+                    android:id="@+id/banksampahdetails_lokasiDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Deskripsi"
+                    android:textSize="14sp"
+                    android:textColor="@color/text"
+                    />
+                <TextView
+                    android:paddingTop="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Narahubung"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/text"
+                    />
+                <TextView
+                    android:id="@+id/banksampahdetails_narahubung"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama (nomor HP)"
+                    android:textSize="16sp"
+                    android:textColor="@color/text"
+                    />
+                <TextView
+                    android:paddingTop="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jumlah Nasabah"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/text"
+                    />
+                <TextView
+                    android:id="@+id/banksampahdetails_jumlahnasabah"
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:text="0 orang"
+                    android:textSize="16sp"
+                    android:textColor="@color/text"
+                    />
+                <TextView
+                    android:paddingTop="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Menerima Sampah"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/text"
+                    />
+                <TextView
+                    android:id="@+id/banksampahdetails_jenissampah"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Plastik, Kertas, Besi, Botol"
+                    android:textSize="16sp"
+                    android:textColor="@color/text"
+                    />
+            </LinearLayout>
+
+            <!--<info.hoang8f.widget.FButton-->
+                <!--xmlns:fbutton="http://schemas.android.com/apk/res-auto"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="30"-->
+                <!--android:layout_marginRight="@dimen/activity_horizontal_margin"-->
+                <!--android:text="Bergabung"-->
+                <!--android:textSize="12sp"-->
+                <!--android:textColor="@color/blue"-->
+                <!--fbutton:buttonColor="@color/white"-->
+                <!--fbutton:shadowColor="@color/blue"-->
+                <!--fbutton:shadowEnabled="true"-->
+                <!--fbutton:shadowHeight="1dp"-->
+                <!--fbutton:cornerRadius="5dp"/>-->
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</ScrollView>

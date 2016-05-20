@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.crashlytics.android.Crashlytics;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,12 +41,12 @@ import picklenostra.user_app.model.BankModel;
 /**
  * Created by marteinstein on 08/05/2016.
  */
-public class ListBankAdapter extends BaseAdapter {
+public class ItemLanggananAdapter extends BaseAdapter {
 
     private ArrayList<BankModel> listBank ;
     private Activity activity;
 
-    public ListBankAdapter(ArrayList<BankModel> listBank, Activity activity) {
+    public ItemLanggananAdapter(ArrayList<BankModel> listBank, Activity activity) {
         this.listBank = listBank;
         this.activity = activity;
     }
@@ -120,12 +122,22 @@ public class ListBankAdapter extends BaseAdapter {
                         activity.finish();
                         activity.startActivity(in);
                     } else {
-                        Toast.makeText(activity, "Minimal 90 hari", Toast.LENGTH_SHORT).show();
+                        if (data.getInt("jumlahHari") == -1) {
+                            Toast toast = Toast.makeText(activity, "Tidak dapat withdraw, harap lakukan transaksi terlebih dahulu", Toast.LENGTH_SHORT);
+                            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+                            if( v != null) v.setGravity(Gravity.CENTER);
+                            toast.show();
+                        } else {
+                            Toast toast = Toast.makeText(activity, "Tidak dapat withdraw, minimal 90 hari setelah transaksi pertama", Toast.LENGTH_SHORT);
+                            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+                            if( v != null) v.setGravity(Gravity.CENTER);
+                            toast.show();
+                        }
                         pb.setVisibility(View.GONE);
                         btn.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {
-
+                    Crashlytics.logException(e);
                 }
             }
         }, new Response.ErrorListener(){

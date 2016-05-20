@@ -11,13 +11,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
         <android.support.v7.widget.CardView
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            card_view:cardBackgroundColor="@color/light_grey"
-            android:id="@+id/cardPlastik">
+            android:id="@+id/cardPlastik"
+            card_view:cardBackgroundColor="?android:colorBackground">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -33,8 +32,7 @@
                     android:textSize="16sp"
                     android:text="Sampah Plastik "
                     android:textColor="@color/text"
-                    android:layout_marginLeft="16dp"
-
+                    android:layout_marginLeft="6dp"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -44,20 +42,24 @@
                     android:layout_below="@+id/sampah_plastik"
                     android:text="32,5 kg"
                     android:textColor="@color/text"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="6dp"
                     />
 
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/darker_gray"/>
 
         <android.support.v7.widget.CardView
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            card_view:cardBackgroundColor="@color/light_grey"
-            android:id="@+id/cardKertas">
+            android:id="@+id/cardKertas"
+            card_view:cardBackgroundColor="?android:colorBackground">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -72,7 +74,7 @@
                     android:textSize="16sp"
                     android:text="Sampah Kertas"
                     android:textColor="@color/text"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="6dp"
                     android:textStyle="bold"
                     />
 
@@ -83,19 +85,24 @@
                     android:layout_below="@+id/sampah_kertas"
                     android:text="20 kg"
                     android:textColor="@color/text"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="6dp"
                     />
 
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/darker_gray"/>
+
         <android.support.v7.widget.CardView
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            card_view:cardBackgroundColor="@color/light_grey"
-            android:id="@+id/cardLogam">
+            android:id="@+id/cardLogam"
+            card_view:cardBackgroundColor="?android:colorBackground">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -111,7 +118,7 @@
                     android:textSize="16sp"
                     android:text="Sampah Besi"
                     android:textColor="@color/text"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="6dp"
                     />
 
                 <TextView
@@ -121,18 +128,24 @@
                     android:layout_below="@+id/sampah_besi"
                     android:text="76,23 kg"
                     android:textColor="@color/text"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="6dp"
                     />
 
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/darker_gray"/>
+
         <android.support.v7.widget.CardView
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            card_view:cardBackgroundColor="@color/light_grey"
-            android:id="@+id/cardBotol">
+            android:id="@+id/cardBotol"
+            card_view:cardBackgroundColor="?android:colorBackground">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -148,7 +161,7 @@
                     android:text="Sampah Botol"
                     android:textStyle="bold"
                     android:textColor="@color/text"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="6dp"
                     />
 
                 <TextView
@@ -158,11 +171,17 @@
                     android:layout_below="@+id/sampah_botol"
                     android:text="17 pcs"
                     android:textColor="@color/text"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="6dp"
                     />
 
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/darker_gray"/>
+
     </LinearLayout>
 </LinearLayout>

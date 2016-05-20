@@ -14,6 +14,8 @@
         >
 
         <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/dashboard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -59,7 +61,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Exp"
+                        android:text="Exp: "
                         android:textSize="16sp"
                         android:id="@+id/dashboard_member_experience"
                         android:textStyle="bold"
@@ -101,6 +103,7 @@
                             android:layout_toRightOf="@+id/balance_photo"
                             android:layout_alignParentTop="true"
                             android:textSize="16sp"
+                            android:textStyle="bold"
                             android:text="Saldo anda"
                             android:textColor="@color/white"
                             android:layout_marginLeft="16dp" />
@@ -147,6 +150,7 @@
                             android:layout_toRightOf="@+id/trash_photo"
                             android:layout_alignParentTop="true"
                             android:textSize="16sp"
+                            android:textStyle="bold"
                             android:text="Jumlah sampah disetor"
                             android:textColor="@color/white"
                             android:layout_marginLeft="16dp"
@@ -193,6 +197,7 @@
                             android:layout_toRightOf="@+id/level_photo"
                             android:layout_alignParentTop="true"
                             android:textSize="16sp"
+                            android:textStyle="bold"
                             android:text="Level anda"
                             android:textColor="@color/white"
                             android:layout_marginLeft="16dp"
@@ -216,6 +221,13 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/dashboard_loading"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:indeterminate="true"
+            android:layout_gravity="center"/>
 
     </android.support.design.widget.CoordinatorLayout>
 
