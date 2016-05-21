@@ -2,8 +2,6 @@ package picklenostra.user_app.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 import picklenostra.user_app.helper.DateTimeConverter;
-import picklenostra.user_app.helper.RupiahFormatter;
+import picklenostra.user_app.helper.PickleFormatter;
 import picklenostra.user_app.model.ItemTransaksiModel;
 import picklenostra.user_app.R;
 
@@ -69,9 +65,9 @@ public class ItemTransaksiAdapter extends BaseAdapter {
         }
 
         ItemTransaksiModel itemTransaksiModel = (ItemTransaksiModel)getItem(position);
-        viewHolder.tvNamaBankSampah.setText(itemTransaksiModel.getNamaBankSampah());
+        viewHolder.tvNamaBankSampah.setText(PickleFormatter.formatTextLength(itemTransaksiModel.getNamaBankSampah(), 28));
         viewHolder.tvJumlahSampah.setText(itemTransaksiModel.getJumlahSampah());
-        viewHolder.tvNominalTransaksi.setText(RupiahFormatter.format(itemTransaksiModel.getNominalTransaksi()));
+        viewHolder.tvNominalTransaksi.setText(PickleFormatter.formatHarga(itemTransaksiModel.getNominalTransaksi()));
 
         String[] tanggalWaktu = DateTimeConverter.generateTanggalWaktu(itemTransaksiModel.getWaktu());
         viewHolder.tvTanggalTransaksi.setText(tanggalWaktu[0]);

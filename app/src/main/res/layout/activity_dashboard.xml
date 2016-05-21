@@ -31,12 +31,14 @@
                     android:layout_height="80dp"
                     android:id="@+id/dashboard_profile_picture"
                     android:src="@drawable/ic_default_user"
-                    android:adjustViewBounds="true"/>
+                    android:adjustViewBounds="true"
+                    android:layout_gravity="center_vertical"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical">
 
                     <TextView
                         android:layout_width="wrap_content"

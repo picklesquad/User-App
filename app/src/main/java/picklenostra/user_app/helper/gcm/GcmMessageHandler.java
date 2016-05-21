@@ -15,6 +15,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import java.util.Collection;
@@ -97,6 +98,7 @@ public class GcmMessageHandler extends IntentService {
             mNotificationManager.notify(MESSAGE_NOTIFICATION_ID, mBuilder.build());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            Crashlytics.logException(e);
         }
     }
 }

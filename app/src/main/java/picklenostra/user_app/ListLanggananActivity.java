@@ -28,7 +28,7 @@ import java.util.Map;
 
 import picklenostra.user_app.adapter.ItemLanggananAdapter;
 import picklenostra.user_app.helper.VolleyController;
-import picklenostra.user_app.model.BankModel;
+import picklenostra.user_app.model.ItemLanggananModel;
 
 /**
  * Created by marteinstein on 08/05/2016.
@@ -37,7 +37,7 @@ public class ListLanggananActivity extends ActionBarActivity {
 
     private ListView listBank;
     private String url = "";
-    private ArrayList<BankModel> list = new ArrayList<>();
+    private ArrayList<ItemLanggananModel> list = new ArrayList<>();
     ListLanggananActivity thisClass = this;
     private ItemLanggananAdapter adapter;
     private ProgressBar progressBar;
@@ -46,7 +46,7 @@ public class ListLanggananActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_bank);
+        setContentView(R.layout.activity_list_langganan);
         getSupportActionBar().setTitle("Langganan");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -57,7 +57,7 @@ public class ListLanggananActivity extends ActionBarActivity {
         progressBar.getIndeterminateDrawable().setColorFilter(0xFF80CBC4, android.graphics.PorterDuff.Mode.SRC_ATOP);
         url = getResources().getString(R.string.API_URL) + "/balances";
 
-        listBank = (ListView)findViewById(R.id.id_list_bank);
+        listBank = (ListView) findViewById(R.id.id_list_bank);
 
         SharedPreferences shared = getSharedPreferences(getResources().getString(R.string.KEY_SHARED_PREF), MODE_PRIVATE);
         String token = shared.getString("token", "");
@@ -72,9 +72,10 @@ public class ListLanggananActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("tes", "tessss");
-                Toast.makeText(ListLanggananActivity.this, "bank " + ((BankModel) adapter.getItem(position)).getBankName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ListLanggananActivity.this, "bank " + ((ItemLanggananModel) adapter.getItem(position)).getBankName(), Toast.LENGTH_SHORT).show();
             }
         });
+        listBank.setItemsCanFocus(true);
     }
 
     private void volleyRequest(final String token, final int idUser){
@@ -84,10 +85,10 @@ public class ListLanggananActivity extends ActionBarActivity {
                 try {
                     JSONObject responseObject = new JSONObject(response);
                     JSONArray arrayBalance = responseObject.getJSONArray("data");
-                    Log.e("array", responseObject.toString());
+//                    Log.e("array", responseObject.toString());
                     for (int i = 0; i < arrayBalance.length(); i++) {
                         JSONObject bankObject = arrayBalance.getJSONObject(i);
-                        BankModel bankModel = new BankModel();
+                        ItemLanggananModel bankModel = new ItemLanggananModel();
                         bankModel.setId(bankObject.getInt("idBank"));
                         bankModel.setBankName(bankObject.getString("namaBank"));
                         bankModel.setSaldoInBank(bankObject.getInt("balance"));

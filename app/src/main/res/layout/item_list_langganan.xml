@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Bank ABC"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:id="@+id/id_bank_name"
                 />
@@ -47,7 +47,6 @@
             android:text="Withdraw"
             android:textColor="#fff"
             android:background="@drawable/style_rounded_button"
-            android:textSize="14sp"
             android:id="@+id/id_withdraw_button"
             />
         <ProgressBar

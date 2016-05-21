@@ -21,6 +21,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.crashlytics.android.Crashlytics;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import picklenostra.user_app.adapter.ItemTransaksiAdapter;
-import picklenostra.user_app.helper.RupiahFormatter;
+import picklenostra.user_app.helper.PickleFormatter;
 import picklenostra.user_app.helper.VolleyController;
 import picklenostra.user_app.model.ItemTransaksiModel;
 import picklenostra.user_app.R;
@@ -101,7 +102,7 @@ public class TransaksiFragment extends Fragment {
                     sampahKertas.setText(transaksi.getSampahKertas() + " kg kertas");
                     sampahBesi.setText(transaksi.getSampahBesi() + " kg besi");
                     sampahBotol.setText(transaksi.getSampahBotol() + " buah botol");
-                    harga.setText("Harga: " + RupiahFormatter.format(transaksi.getNominalTransaksi()));
+                    harga.setText("Harga: " + PickleFormatter.formatHarga(transaksi.getNominalTransaksi()));
 
                     Button tolak = (Button) dialog.findViewById(R.id.konfirm_tolak);
                     Button terima = (Button) dialog.findViewById(R.id.konfirm_terima);
@@ -218,12 +219,13 @@ public class TransaksiFragment extends Fragment {
                     dialog.dismiss();
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Crashlytics.logException(e);
                 }
             }
         }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Crashlytics.logException(error);
             }
         }){
             @Override

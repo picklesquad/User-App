@@ -1,7 +1,6 @@
 package picklenostra.user_app.adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,22 +29,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import picklenostra.user_app.DashboardActivity;
+import picklenostra.user_app.BankSampahDetailsActivity;
 import picklenostra.user_app.R;
 import picklenostra.user_app.WithdrawFormActivity;
-import picklenostra.user_app.helper.RupiahFormatter;
+import picklenostra.user_app.helper.PickleFormatter;
 import picklenostra.user_app.helper.VolleyController;
-import picklenostra.user_app.model.BankModel;
+import picklenostra.user_app.model.ItemLanggananModel;
 
 /**
  * Created by marteinstein on 08/05/2016.
  */
 public class ItemLanggananAdapter extends BaseAdapter {
 
-    private ArrayList<BankModel> listBank ;
+    private ArrayList<ItemLanggananModel> listBank ;
     private Activity activity;
 
-    public ItemLanggananAdapter(ArrayList<BankModel> listBank, Activity activity) {
+    public ItemLanggananAdapter(ArrayList<ItemLanggananModel> listBank, Activity activity) {
         this.listBank = listBank;
         this.activity = activity;
     }
@@ -70,7 +68,7 @@ public class ItemLanggananAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         //jika kosong
         if(convertView==null){
-            convertView = LayoutInflater.from(activity).inflate(R.layout.adapter_list_bank,parent,false);
+            convertView = LayoutInflater.from(activity).inflate(R.layout.item_list_langganan,parent,false);
         }
 
         TextView bankName = (TextView) convertView.findViewById(R.id.id_bank_name);
@@ -82,7 +80,7 @@ public class ItemLanggananAdapter extends BaseAdapter {
         withdrawBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("test", "test button " + listBank.get(position).getBankName());
+//                Log.e("test", "test button " + listBank.get(position).getBankName());
                 progressBar.setVisibility(View.VISIBLE);
                 withdrawBtn.setVisibility(View.GONE);
                 volleyRequestCheckFirstTransaction(listBank.get(position).getId(), position,
@@ -90,13 +88,26 @@ public class ItemLanggananAdapter extends BaseAdapter {
             }
         });
 
+        convertView.setClickable(true);
+        convertView.setFocusable(true);
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Log.e("tes", "tes click");
+                Intent in = new Intent(activity, BankSampahDetailsActivity.class);
+                in.putExtra("idBank", (listBank.get(position)).getId());
+                activity.startActivity(in);
+            }
+        });
+
         //untuk foto nanti pake volley method sendiri bodo ahmad
         String bankNameStr = listBank.get(position).getBankName();
-        if (bankNameStr.length() > 21) bankNameStr = bankNameStr.substring(0,19) + "...";
-        bankName.setText(bankNameStr);
+        String bankNameFormatted = PickleFormatter.formatTextLength(bankNameStr, 24);
+
+        bankName.setText(bankNameFormatted);
 
         double saldo = listBank.get(position).getSaldoInBank();
-        saldoInBank.setText(RupiahFormatter.format(saldo));
+        saldoInBank.setText(PickleFormatter.formatHarga(saldo));
 
         return convertView;
     }
@@ -143,7 +154,7 @@ public class ItemLanggananAdapter extends BaseAdapter {
         }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Crashlytics.logException(error);
             }
         }){
             @Override

@@ -38,7 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import picklenostra.user_app.helper.DateTimeConverter;
-import picklenostra.user_app.helper.RupiahFormatter;
+import picklenostra.user_app.helper.PickleFormatter;
 import picklenostra.user_app.helper.UserSessionManager;
 import picklenostra.user_app.helper.VolleyController;
 
@@ -215,7 +215,7 @@ public class DashboardActivity extends ActionBarActivity {
                     tvProfileName.setText(nama);
                     tvMemberSince.setText("Anggota sejak " + DateTimeConverter.generateTanggalWaktu(memberSince)[0]);
                     tvMemberExperience.setText("Exp: " + exp);
-                    tvBalanceContent.setText(RupiahFormatter.format(saldo));
+                    tvBalanceContent.setText(PickleFormatter.formatHarga(saldo));
                     tvTrashContent.setText(sampahPlastik + sampahKertas + sampahBesi + " kg dan " + sampahBotol + " botol");
                     tvLevelContent.setText(level);
 

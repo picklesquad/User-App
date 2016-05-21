@@ -34,7 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import picklenostra.user_app.helper.DateTimeConverter;
-import picklenostra.user_app.helper.RupiahFormatter;
+import picklenostra.user_app.helper.PickleFormatter;
 import picklenostra.user_app.helper.VolleyController;
 
 public class WithdrawFormActivity extends ActionBarActivity {
@@ -83,7 +83,7 @@ public class WithdrawFormActivity extends ActionBarActivity {
 
         tvBankName.setText(getIntent().getExtras().getString("namaBank"));
         final double saldo = getIntent().getExtras().getDouble("saldo");
-        tvSaldo.setText("Saldo Anda: " + RupiahFormatter.format(saldo));
+        tvSaldo.setText("Saldo Anda: " + PickleFormatter.formatHarga(saldo));
 
         etTanggal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -259,17 +259,8 @@ public class WithdrawFormActivity extends ActionBarActivity {
     }
 
 
-    private void volleyRequest(final String token,
-                               final String idUser,
-                               final String idBank,
-                               final String jumlah,
-                               final String waktu) {
-
-        Log.e("token", token);
-        Log.e("idUSer", idUser);
-        Log.e("idBank", idBank);
-        Log.e("jumla", jumlah);
-        Log.e("waktu", waktu);
+    private void volleyRequest(final String token, final String idUser, final String idBank,
+                               final String jumlah, final String waktu) {
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>(){
             @Override
             public void onResponse(String response) {

@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import picklenostra.user_app.R;
+import picklenostra.user_app.helper.PickleFormatter;
 import picklenostra.user_app.model.SearchWithMapModel;
 
 /**
@@ -64,7 +65,7 @@ public class SearchWithMapAdapter extends BaseAdapter {
         }
 
         SearchWithMapModel searchWithMapModel = (SearchWithMapModel)getItem(position);
-        viewHolder.namaBank.setText(searchWithMapModel.getNamaBank());
+        viewHolder.namaBank.setText(PickleFormatter.formatTextLength(searchWithMapModel.getNamaBank(), 33));
         viewHolder.namaJalan.setText(searchWithMapModel.getNamaJalan());
         viewHolder.jarak.setText(searchWithMapModel.getJarak() + " Km");
 //

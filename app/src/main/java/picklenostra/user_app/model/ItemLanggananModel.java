@@ -7,20 +7,20 @@ import android.widget.ProgressBar;
  * Created by marteinstein on 08/05/2016.
  */
 
-public class BankModel {
+public class ItemLanggananModel {
     private int id;
     private String bankName;
     private double saldoInBank;
     private String urlPhotobank;
 
-    public BankModel(int id, String bankName, double saldoInBank, String urlPhotobank) {
+    public ItemLanggananModel(int id, String bankName, double saldoInBank, String urlPhotobank) {
         this.id = id;
         this.bankName = bankName;
         this.saldoInBank = saldoInBank;
         this.urlPhotobank = urlPhotobank;
     }
 
-    public BankModel(){}
+    public ItemLanggananModel(){}
 
     public int getId() {
         return id;

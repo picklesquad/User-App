@@ -1,7 +1,6 @@
 package picklenostra.user_app;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +21,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.crashlytics.android.Crashlytics;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +29,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import picklenostra.user_app.helper.RupiahFormatter;
+import picklenostra.user_app.helper.DateTimeConverter;
 import picklenostra.user_app.helper.VolleyController;
 
 
@@ -110,7 +110,10 @@ public class BankSampahDetailsActivity extends AppCompatActivity {
 
                     if (isSubscribed) {
                         subsButton.setVisibility(View.GONE);
-                        tvIsSubscribed.setText("(Berlangganan)");
+                        long langgananSejak = data.getLong("langgananSejak");
+                        String tanggalLanggananSejak = DateTimeConverter.generateTanggalWaktu(langgananSejak)[0];
+
+                        tvIsSubscribed.setText("(Berlangganan sejak " + tanggalLanggananSejak + ")");
                     } else {
                         subsButton.setVisibility(View.VISIBLE);
                         subsButton.setOnClickListener(new View.OnClickListener(){
@@ -155,14 +158,16 @@ public class BankSampahDetailsActivity extends AppCompatActivity {
                     Log.e("test", "load profile complete");
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Crashlytics.logException(e);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Crashlytics.logException(e);
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Crashlytics.logException(error);
             }
         }){
             @Override
@@ -188,12 +193,13 @@ public class BankSampahDetailsActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Crashlytics.logException(e);
                 }
             }
         }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Crashlytics.logException(error);
             }
         }){
             @Override

@@ -2,20 +2,16 @@ package picklenostra.user_app.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import picklenostra.user_app.helper.DateTimeConverter;
-import picklenostra.user_app.helper.RupiahFormatter;
+import picklenostra.user_app.helper.PickleFormatter;
 import picklenostra.user_app.model.ItemWithdrawalModel;
 import picklenostra.user_app.R;
 
@@ -88,8 +84,8 @@ public class ItemWithdrawalAdapter extends BaseAdapter {
             viewHolder.statusWithdrawal.setBackgroundResource(R.drawable.style_rounded_textview_red);
         }
 
-        viewHolder.namaBankSampah.setText(itemWithdrawalModel.getNamaBank());
-        viewHolder.nominalWithdrawal.setText(RupiahFormatter.format(itemWithdrawalModel.getNominalWithdrawal()));
+        viewHolder.namaBankSampah.setText(PickleFormatter.formatTextLength(itemWithdrawalModel.getNamaBank(), 23));
+        viewHolder.nominalWithdrawal.setText(PickleFormatter.formatHarga(itemWithdrawalModel.getNominalWithdrawal()));
 
         String[] tanggalWaktu = DateTimeConverter.generateTanggalWaktu(itemWithdrawalModel.getWaktu());
         viewHolder.tanggalWithdrawal.setText(tanggalWaktu[0]);
