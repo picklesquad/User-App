@@ -3,12 +3,14 @@ package picklenostra.user_app.fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -25,6 +27,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import picklenostra.user_app.HistoryActivity;
+import picklenostra.user_app.adapter.ItemTransaksiAdapter;
 import picklenostra.user_app.adapter.ItemWithdrawalAdapter;
 import picklenostra.user_app.helper.VolleyController;
 import picklenostra.user_app.model.ItemWithdrawalModel;
@@ -56,16 +60,28 @@ public class WithdrawalFragment extends Fragment {
         SharedPreferences shared = getActivity()
                 .getSharedPreferences(getResources()
                         .getString(R.string.KEY_SHARED_PREF), getActivity().MODE_PRIVATE);
-        String token = shared.getString("token", "");
-        int idUser = shared.getInt("idUser", 0);
+        final String token = shared.getString("token", "");
+        final int idUser = shared.getInt("idUser", 0);
 
-        volleyRequest(idUser, token);
+        volleyRequest(idUser, token, false);
         adapter = new ItemWithdrawalAdapter(this.getActivity(), listItemWithdrawalModel);
         listView.setAdapter(adapter);
+
+        ((HistoryActivity) getActivity()).setWithdrawalRefreshListener(new HistoryActivity.WithdrawalRefreshListener() {
+            @Override
+            public void onRefresh() {
+                progressBar.setVisibility(View.VISIBLE);
+                listItemWithdrawalModel.clear();
+                volleyRequest(idUser, token, true);
+                adapter = new ItemWithdrawalAdapter(getActivity(), listItemWithdrawalModel);
+                listView.setAdapter(adapter);
+                Log.e("tes", "withdraw updated");
+            }
+        });
         return view;
     }
 
-    private void volleyRequest(final int idUser, final String token){
+    private void volleyRequest(final int idUser, final String token, final boolean isRefresh){
         StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -94,6 +110,10 @@ public class WithdrawalFragment extends Fragment {
                     if (datas.length() == 0) {
                         tvNotFound.setVisibility(View.VISIBLE);
                     }
+
+                    if (isRefresh) {
+//                        Toast.makeText(getActivity(), "Refresh history withdrawal berhasil", Toast.LENGTH_SHORT).show();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Crashlytics.logException(e);
@@ -117,4 +137,7 @@ public class WithdrawalFragment extends Fragment {
         VolleyController.getInstance().addToRequestQueue(request);
     }
 
+    public int getNumberOfWithdrawals() {
+        return listItemWithdrawalModel.size();
+    }
 }

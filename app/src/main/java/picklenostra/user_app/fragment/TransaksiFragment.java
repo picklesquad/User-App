@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import picklenostra.user_app.HistoryActivity;
 import picklenostra.user_app.adapter.ItemTransaksiAdapter;
 import picklenostra.user_app.helper.PickleFormatter;
 import picklenostra.user_app.helper.VolleyController;
@@ -74,7 +76,7 @@ public class TransaksiFragment extends Fragment {
         final String token = shared.getString("token", "");
         final int idUser = shared.getInt("idUser", 0);
 
-        volleyRequest(idUser, token);
+        volleyRequest(idUser, token, false);
 
         adapter = new ItemTransaksiAdapter(this.getActivity(), listItemTransaksi);
         listView.setAdapter(adapter);
@@ -84,7 +86,7 @@ public class TransaksiFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("tes", "tessss");
                 final ItemTransaksiModel transaksi = (ItemTransaksiModel) adapter.getItem(position);
-                if(transaksi.getStatusTransaksi() == 0) {
+                if (transaksi.getStatusTransaksi() == 0) {
                     final Dialog dialog = new Dialog(getActivity());
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog.setContentView(R.layout.dialog_konfirm_transaksi);
@@ -113,7 +115,8 @@ public class TransaksiFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             progressBar.setVisibility(View.VISIBLE);
-                            volleyRequestUpdate(token, idUser, transaksi, 2, dialog);
+                            dialog.dismiss();
+                            volleyRequestUpdate(token, idUser, transaksi, 2);
                         }
                     });
 
@@ -121,17 +124,30 @@ public class TransaksiFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             progressBar.setVisibility(View.VISIBLE);
-                            volleyRequestUpdate(token, idUser, transaksi, 1, dialog);
+                            dialog.dismiss();
+                            volleyRequestUpdate(token, idUser, transaksi, 1);
                         }
                     });
                 }
             }
         });
 
+        ((HistoryActivity) getActivity()).setTransaksiRefreshListener(new HistoryActivity.TransaksiRefreshListener() {
+            @Override
+            public void onRefresh() {
+                progressBar.setVisibility(View.VISIBLE);
+                listItemTransaksi.clear();
+                volleyRequest(idUser, token, true);
+                adapter = new ItemTransaksiAdapter(getActivity(), listItemTransaksi);
+                listView.setAdapter(adapter);
+                Log.e("tes", "transaksi updated");
+            }
+        });
+
         return view;
     }
 
-    private void volleyRequest(final int idUser, final String token){
+    private void volleyRequest(final int idUser, final String token, final boolean isRefresh){
         StringRequest request = new StringRequest(Request.Method.GET, urlTransactions, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -169,6 +185,9 @@ public class TransaksiFragment extends Fragment {
                         adapter.notifyDataSetChanged();
                     }
                     progressBar.setVisibility(View.GONE);
+                    if (isRefresh) {
+//                        Toast.makeText(getActivity(), "Refresh history transaksi berhasil", Toast.LENGTH_SHORT).show();
+                    }
                     if (datas.length() == 0) {
                         tvNotFound.setVisibility(View.VISIBLE);
                     }
@@ -196,7 +215,7 @@ public class TransaksiFragment extends Fragment {
     }
 
     private void volleyRequestUpdate(final String token, final int idUser, final ItemTransaksiModel transaksi,
-                                     final int status, final Dialog dialog){
+                                     final int status){
         StringRequest request =  new StringRequest(Request.Method.PUT, urlUpdate, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -216,7 +235,6 @@ public class TransaksiFragment extends Fragment {
                     listItemTransaksi.add(transaksi);
                     adapter.notifyDataSetChanged();
                     progressBar.setVisibility(View.GONE);
-                    dialog.dismiss();
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Crashlytics.logException(e);
@@ -239,5 +257,9 @@ public class TransaksiFragment extends Fragment {
             }
         };
         VolleyController.getInstance().addToRequestQueue(request);
+    }
+
+    public int getNumberOfTransactions() {
+        return listItemTransaksi.size();
     }
 }

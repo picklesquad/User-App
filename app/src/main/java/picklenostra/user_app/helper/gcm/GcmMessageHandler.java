@@ -26,7 +26,7 @@ import picklenostra.user_app.R;
  */
 public class GcmMessageHandler extends IntentService {
 
-    private String title,text;
+    private String title, text, type;
     public static final int MESSAGE_NOTIFICATION_ID = 578578;
 
     private Handler handler;
@@ -54,8 +54,9 @@ public class GcmMessageHandler extends IntentService {
 
         title = extras.getString("title");
         text = extras.getString("text");
+        type = extras.getString("type");
 
-        createNotification(title,text);
+        createNotification(title, text, type);
         Log.i("GCM", "Received : (" +messageType+")  "+extras.getString("title"));
 
         GcmBroadcastReceiver.completeWakefulIntent(intent);
@@ -70,10 +71,10 @@ public class GcmMessageHandler extends IntentService {
         });
     }
 
-    public void createNotification(String title, String body){
+    public void createNotification(String title, String body, String type){
 //        Log.e("tes GCM", "GCM masuk nih4");
 //        Log.e("tes GCM", "Title + " + title + ", body " + body);
-        if (title == null || body == null) {
+        if (title == null || body == null || type == null) {
             return;
         }
 
@@ -86,9 +87,16 @@ public class GcmMessageHandler extends IntentService {
         Intent myIntent = null;
         try {
             myIntent = new Intent(this,Class.forName("picklenostra.user_app.HistoryActivity"));
-            myIntent.putExtra("id", "1");
+            if (type.equals("1")) {
+                myIntent.putExtra("type", type);
+            } else {
+                myIntent.putExtra("type", type);
+            }
+
+
             PendingIntent contentIntent = PendingIntent.getActivity(this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             mBuilder.setContentIntent(contentIntent);
+            mBuilder.setPriority(Notification.PRIORITY_HIGH);
             mBuilder.setAutoCancel(true);
             mBuilder.setVibrate(new long[]{500, 500, 500, 500, 500});
             mBuilder.setLights(Color.RED, 1000, 1000);

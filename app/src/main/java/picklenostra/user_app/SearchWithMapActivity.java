@@ -58,7 +58,7 @@ import picklenostra.user_app.model.SearchWithMapModel;
 
 public class SearchWithMapActivity extends ActionBarActivity implements
         LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener ,
-        GoogleMap.OnInfoWindowClickListener {
+        GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap googleMap;
     private GoogleApiClient googleApiClient;
@@ -69,12 +69,13 @@ public class SearchWithMapActivity extends ActionBarActivity implements
     private ListView listView;
 
     private ArrayList<SearchWithMapModel> listBankSampah;
-    private HashMap<Marker, SearchWithMapModel> markerData;
+    private HashMap<LatLng, SearchWithMapModel> markerData;
 
     private double curLat, curLong;
     private final int INTERVAL = 1000 * 200;
     private String URL = "";
     private final int EARTH_RADIUS = 6371;
+    private final double CAM_ADJUST = 0.0032;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,9 +110,16 @@ public class SearchWithMapActivity extends ActionBarActivity implements
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                Log.e("tes", "tessss");
 //                Toast.makeText(SearchWithMapActivity.this, "bank " + ((SearchWithMapModel) adapter.getItem(position)).getNamaBank(), Toast.LENGTH_SHORT).show();
-                Intent in = new Intent(SearchWithMapActivity.this, BankSampahDetailsActivity.class);
-                in.putExtra("idBank", ((SearchWithMapModel) adapter.getItem(position)).getId());
-                startActivity(in);
+                SearchWithMapModel model = (SearchWithMapModel) adapter.getItem(position);
+//                Intent in = new Intent(SearchWithMapActivity.this, BankSampahDetailsActivity.class);
+//                in.putExtra("idBank", model.getId());
+                setPositionToCamera(model.getLatitude() + CAM_ADJUST, model.getLongitude());
+                Log.e("modellat", model.getLatitude() + "");
+                Log.e("modellong", model.getLongitude() + "");
+                Marker marker = markerData.get(new LatLng(model.getLatitude(), model.getLongitude())).getMarker();
+                marker.showInfoWindow();
+//                onInfoWindowClick(markerData.get(new LatLng(model.getLatitude(), model.getLongitude())).getMarker());
+//                startActivity(in);
             }
         });
         setPositionToCamera(curLat, curLong);
@@ -166,15 +174,6 @@ public class SearchWithMapActivity extends ActionBarActivity implements
         }
     }
 
-    private void setBlueCircleRadius(double latitude, double longitude){
-        CircleOptions circleOptions = new CircleOptions()
-                .center(new LatLng(latitude,longitude))
-                .radius(500)
-                .fillColor(Color.argb(20, 0, 154, 225))
-                .strokeColor(Color.TRANSPARENT);
-        googleMap.addCircle(circleOptions);
-    }
-
     private void setPositionToCamera(double latitude, double longitude){
         CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(latitude, longitude)).zoom(14).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -185,7 +184,10 @@ public class SearchWithMapActivity extends ActionBarActivity implements
                 .title(namaBank)
                 .snippet(alamatBank)
                 .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_bank_marker));
-        markerData.put(googleMap.addMarker(marker), model);
+        Marker added = googleMap.addMarker(marker);
+        LatLng latLng = new LatLng(latitude, longitude);
+        model.setMarker(added);
+        markerData.put(latLng, model);
         ;
     }
 
@@ -194,7 +196,6 @@ public class SearchWithMapActivity extends ActionBarActivity implements
         Log.e("LOCATION", "Location services connected");
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(INTERVAL);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -227,7 +228,7 @@ public class SearchWithMapActivity extends ActionBarActivity implements
         if(location != null) {
             curLat = location.getLatitude();
             curLong = location.getLongitude();
-            setPositionToCamera(curLat, curLong);
+            setPositionToCamera(curLat + CAM_ADJUST, curLong);
         }
     }
 
@@ -259,6 +260,8 @@ public class SearchWithMapActivity extends ActionBarActivity implements
                         searchWithMapModel.setNamaJalan(alamatBank);
                         searchWithMapModel.setJarak(jarak);
                         searchWithMapModel.setpictureUrl("https://avatars0.githubusercontent.com/u/10989633?v=3&s=400");
+                        searchWithMapModel.setLatitude(latitude);
+                        searchWithMapModel.setLongitude(longitude);
 
                         //SetMarker
                         setMarker(latitude, longitude, namaBank, alamatBank, searchWithMapModel);
@@ -277,6 +280,7 @@ public class SearchWithMapActivity extends ActionBarActivity implements
 
                     progressBar.setVisibility(View.GONE);
                     googleMap.setOnInfoWindowClickListener(SearchWithMapActivity.this);
+                    googleMap.setOnMarkerClickListener(SearchWithMapActivity.this);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Crashlytics.logException(e);
@@ -362,7 +366,7 @@ public class SearchWithMapActivity extends ActionBarActivity implements
     @Override
     public void onInfoWindowClick(Marker marker) {
 //        Toast.makeText(this, "Info window clicked", Toast.LENGTH_SHORT).show();
-        SearchWithMapModel model = markerData.get(marker);
+        SearchWithMapModel model = markerData.get(marker.getPosition());
         if (model != null) {
             Intent in = new Intent(SearchWithMapActivity.this, BankSampahDetailsActivity.class);
             in.putExtra("idBank", model.getId());
@@ -370,5 +374,12 @@ public class SearchWithMapActivity extends ActionBarActivity implements
         } else {
             Toast.makeText(this, "Data tidak ada", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        setPositionToCamera(marker.getPosition().latitude + CAM_ADJUST, marker.getPosition().longitude);
+        marker.showInfoWindow();
+        return true;
     }
 }

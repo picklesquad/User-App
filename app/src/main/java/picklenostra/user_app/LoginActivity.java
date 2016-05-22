@@ -5,14 +5,12 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -28,24 +26,18 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.Profile;
-import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import picklenostra.user_app.helper.UserSessionManager;
 import picklenostra.user_app.helper.VolleyController;
 
 public class LoginActivity extends AppCompatActivity {
@@ -54,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     private LoginButton facebookLoginButton;
 
     private String name, email, birthday, token, facebookId;
-    private String urlCheckComplete = "";
+    private String urlLogin = "";
     private final String PIC_URL_CONSTANTS = "/picture?type=large&redirect=false&width=200&height=200";
     private ProgressBar progressBar;
 
@@ -64,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 //        printHashKey();
-        urlCheckComplete = getResources().getString(R.string.API_URL) + "/login/isComplete";
+        urlLogin = getResources().getString(R.string.API_URL) + "/login";
 
         //Initialize all vars
         progressBar = (ProgressBar) findViewById(R.id.login_loading);
@@ -130,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void volleyRequestCheckComplete(final String email, final String picture, final String token){
-        StringRequest checkComplete =  new StringRequest(Request.Method.POST, urlCheckComplete, new Response.Listener<String>() {
+        StringRequest checkComplete =  new StringRequest(Request.Method.POST, urlLogin, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

@@ -143,8 +143,8 @@ public class BankSampahDetailsActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
                                         progressBar.setVisibility(View.VISIBLE);
-                                        volleyRequestBerlangganan(token, idUser, idBank);
                                         dialog.dismiss();
+                                        volleyRequestBerlangganan(token, idUser, idBank);
                                         subsButton.setVisibility(View.GONE);
                                     }
                                 });

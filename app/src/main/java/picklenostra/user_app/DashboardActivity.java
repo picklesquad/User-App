@@ -57,7 +57,7 @@ public class DashboardActivity extends ActionBarActivity {
 
     private String urlLogin = "";
     private String urlSendGCM = "";
-    private String email, nama, photoUrl, level, token, exp, regid;
+    private String email, nama, photoUrl, level, token, exp, regid, alamat, phoneNumber;
     private int id, star, sampahPlastik, sampahKertas, sampahBotol, sampahBesi, saldo;
     private long memberSince;
 
@@ -70,7 +70,7 @@ public class DashboardActivity extends ActionBarActivity {
         setContentView(R.layout.activity_dashboard);
         getSupportActionBar().setTitle("Dashboard");
 
-        urlLogin = getResources().getString(R.string.API_URL) + "/login";
+        urlLogin = getResources().getString(R.string.API_URL) + "/getProfile";
         urlSendGCM = getResources().getString(R.string.API_URL) + "/gcmRegister";
 
         //Initialize all vars
@@ -103,7 +103,19 @@ public class DashboardActivity extends ActionBarActivity {
                         finish();
                         return true;
                     case R.id.navigation_item_histori:
-                        startActivity(new Intent(DashboardActivity.this, HistoryActivity.class));
+                        Intent in = new Intent(DashboardActivity.this, HistoryActivity.class);
+                        in.putExtra("type", "1");
+                        startActivity(in);
+                        item.setChecked(true);
+                        drawerLayout.closeDrawers();
+                        item.setChecked(false);
+                        return true;
+                    case R.id.navigation_item_edit_profil:
+                        Intent in2 = new Intent(DashboardActivity.this, EditProfileActivity.class);
+                        in2.putExtra("nama", nama);
+                        in2.putExtra("hp", phoneNumber);
+                        in2.putExtra("alamat", alamat);
+                        startActivity(in2);
                         item.setChecked(true);
                         drawerLayout.closeDrawers();
                         item.setChecked(false);
@@ -199,6 +211,8 @@ public class DashboardActivity extends ActionBarActivity {
                     sampahBotol = data.getInt("sampahBotol");
                     sampahBesi = data.getInt("sampahBesi");
                     saldo = data.getInt("saldo");
+                    alamat = data.getString("alamat");
+                    phoneNumber = data.getString("phoneNumber");
 
 //                    Log.e("token", data.getString("apiToken"));
 //                    Log.e("id", "" + data.getInt("id"));
@@ -254,8 +268,6 @@ public class DashboardActivity extends ActionBarActivity {
             session.logoutUser();
             LoginManager.getInstance().logOut();
             finish();
-        } else if (id == R.id.navigation_item_settings) {
-
         }
         return false;
     }

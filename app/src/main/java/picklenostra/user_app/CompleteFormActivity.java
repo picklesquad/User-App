@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.crashlytics.android.Crashlytics;
+import com.facebook.login.LoginManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +37,8 @@ public class CompleteFormActivity extends AppCompatActivity {
     private TextView errorName, errorEmail, errorPhoneNumber, errorAlamat, errorGender;
     private String nama, email, phoneNum, gender, alamat, url, token, photo;
     Bundle extras;
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +46,12 @@ public class CompleteFormActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Registrasi");
 
         //Initialize all vars
-        url = getResources().getString(R.string.API_URL) + "/login/addUser";
+        url = getResources().getString(R.string.API_URL) + "/addUser";
         extras = getIntent().getExtras();
 
         etName = (EditText) findViewById(R.id.etName);
         etEmail = (EditText) findViewById(R.id.etEmail);
+        etEmail.setKeyListener(null);
         etAlamat = (EditText) findViewById(R.id.etAlamat);
         etPhoneNumber = (EditText) findViewById(R.id.etPhoneNumber);
 
@@ -56,6 +61,8 @@ public class CompleteFormActivity extends AppCompatActivity {
         errorPhoneNumber = (TextView) findViewById(R.id.errorPhoneNumber);
         errorAlamat = (TextView) findViewById(R.id.errorAlamat);
         errorGender = (TextView) findViewById(R.id.errorGender);
+        progressBar = (ProgressBar) findViewById(R.id.register_loading);
+        progressBar.getIndeterminateDrawable().setColorFilter(0xFF80CBC4, android.graphics.PorterDuff.Mode.SRC_ATOP);
 
         SharedPreferences shared = getSharedPreferences(getResources().getString(R.string.KEY_SHARED_PREF), MODE_PRIVATE);
         etName.setText(shared.getString("nama", ""));
@@ -93,13 +100,13 @@ public class CompleteFormActivity extends AppCompatActivity {
                 }
 
                 if(validation){
+                    progressBar.setVisibility(View.VISIBLE);
+                    btnNext.setVisibility(View.GONE);
+
                     errorGender.setText(null);
                     Log.e("photo1", "photo :" + photo);
 //                    Toast.makeText(getApplicationContext(), "Thank You!", Toast.LENGTH_SHORT).show();
                     volleyRequestRegister(nama, email, phoneNum, alamat, gender, photo, token);
-                    Intent in = new Intent(CompleteFormActivity.this, DashboardActivity.class);
-                    startActivity(in);
-                    finish();
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Input ada yang salah", Toast.LENGTH_SHORT).show();
@@ -126,6 +133,9 @@ public class CompleteFormActivity extends AppCompatActivity {
         if (etName.getText().toString().trim().isEmpty()) {
             errorName.setText("Nama tidak boleh kosong");
             return false;
+        } else if (etName.getText().toString().trim().length() < 6) {
+            errorName.setText("Nama minimal 6 karakter");
+            return false;
         } else {
             errorName.setText(null);
             return true;
@@ -150,7 +160,7 @@ public class CompleteFormActivity extends AppCompatActivity {
 
     private boolean validateAlamat() {
         if (etAlamat.getText().toString().trim().isEmpty()) {
-            errorAlamat.setText("Tanggal lahir tidak boleh kosong");
+            errorAlamat.setText("Alamat tidak boleh kosong");
             return false;
         } else {
             errorAlamat.setText(null);
@@ -165,6 +175,7 @@ public class CompleteFormActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        LoginManager.getInstance().logOut();
         finish();
         startActivity(new Intent(this, LoginActivity.class));
     }
@@ -192,7 +203,24 @@ public class CompleteFormActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 try {
+                    progressBar.setVisibility(View.GONE);
                     JSONObject responseObject = new JSONObject(response);
+
+                    if (responseObject.getInt("status") != 201) {
+                        Toast.makeText(getApplicationContext(), "No. HP sudah terdaftar", Toast.LENGTH_SHORT).show();
+                        btnNext.setVisibility(View.VISIBLE);
+                    } else {
+                        SharedPreferences shared = getSharedPreferences(getResources().getString(R.string.KEY_SHARED_PREF), MODE_PRIVATE);
+                        SharedPreferences.Editor editor = shared.edit();
+                        editor.putString("nama", nama);
+                        editor.putString("email", email);
+                        editor.commit();
+
+                        Intent in = new Intent(CompleteFormActivity.this, DashboardActivity.class);
+                        startActivity(in);
+                        finish();
+                    }
+
                     Log.e("response", response);
                 } catch (JSONException e) {
                     Crashlytics.logException(e);
@@ -211,7 +239,12 @@ public class CompleteFormActivity extends AppCompatActivity {
                 params.put("email", email);
                 params.put("phoneNumber", phoneNum);
                 params.put("dateOfBirth", "10-10-2010");
-                params.put("gender", gender);
+
+                if (gender.equals("laki-laki")) {
+                    params.put("gender", "0");
+                } else {
+                    params.put("gender", "1");
+                }
                 params.put("alamat", alamat);
                 params.put("fbToken", fbToken);
                 params.put("facebookPhoto", photo);

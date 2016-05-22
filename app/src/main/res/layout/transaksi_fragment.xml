@@ -2,6 +2,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+             android:id="@+id/transaksi_fragment"
              tools:context="picklenostra.user_app.Fragment.TransaksiFragment">
 
     <ListView
